@@ -138,7 +138,6 @@ return [
         'excepts' => [
             'auth/login',
             'auth/logout',
-            'locale',
             '_handle_action_',
         ],
     ],
@@ -396,17 +395,5 @@ return [
     | https://github.com/laravel-admin-extensions.
     |
     */
-    'extensions' => [
-        'multi-language' => [
-            'enable' => true,
-            // the key should be same as var locale in config/app.php
-            // the value is used to show
-            'languages' => [
-                'en' => 'English',
-                'zh-CN' => '简体中文',
-            ],
-            // default locale
-            'default' => 'zh-CN',
-        ],
-    ],
+    'extensions' => [],
 ];
