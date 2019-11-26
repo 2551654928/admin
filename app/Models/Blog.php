@@ -33,4 +33,9 @@ class Blog extends Model
     {
         return $this->hasMany('App\Models\Dateline', 'blog_id', 'id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment', 'foreign_id', 'id');
+    }
 }

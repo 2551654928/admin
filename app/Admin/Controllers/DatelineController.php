@@ -41,6 +41,8 @@ class DatelineController extends AdminController
         $grid->column('created_at', __('创建时间'))->sortable()
             ->filter('range', 'datetime');
 
+        $grid->disableCreateButton();
+
         return $grid;
     }
 

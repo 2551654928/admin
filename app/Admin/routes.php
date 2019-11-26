@@ -14,4 +14,5 @@ Route::group([
     $router->resource('blogs', BlogController::class);
     $router->resource('articles', ArticleController::class);
     $router->resource('datelines', DatelineController::class);
+    $router->resource('comments', CommentController::class);
 });
