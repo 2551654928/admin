@@ -6,7 +6,7 @@
         font-weight: 100;
         display: block;
         text-align: center;
-        margin: 100px 0 10px 0px;
+        margin: 20px 0 10px 0px;
     }
 
     .links {
@@ -26,7 +26,7 @@
 </style>
 
 <div class="title">
-    Welcome ForeverBlog
+    十年之约管理面板
 </div>
 <div class="links">
     <a href="https://github.com/foreverblog" target="_blank">Github</a>

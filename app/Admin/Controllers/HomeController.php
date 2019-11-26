@@ -15,7 +15,7 @@ class HomeController extends Controller
         return $content
             ->title('仪表盘')
             ->description('Description...')
-            ->row(view('welcome'))
+            ->row(view('admin.dashboard'))
             ->row(function (Row $row) {
 
                 $row->column(4, function (Column $column) {
