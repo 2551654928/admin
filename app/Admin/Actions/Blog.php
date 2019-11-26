@@ -28,8 +28,8 @@ class Blog extends RowAction
 
     public function form()
     {
-        $this->datetime('date', __('时间'));
-        $this->textarea('content', __('内容'))->rules('required');
+        $this->datetime('date', __('时间'))->required();
+        $this->textarea('content', __('内容'))->required();
     }
 
 }
