@@ -2,16 +2,26 @@
 
 namespace App\Admin\Actions;
 
+use App\Models\Dateline;
 use Encore\Admin\Actions\RowAction;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Blog extends RowAction
 {
     public $name = '记录大事记';
 
-    public function handle(Model $model)
+    public function handle(Model $model, Request $request)
     {
-        // TODO ... 记录大事记
+        $blogId = $request->post('_key');
+        // 记录大事记
+        $dateline = new Dateline;
+        $dateline->blog_id = $blogId;
+        $dateline->date = $request->get('date');
+        $dateline->content = $request->get('content');
+        if (!$dateline->save()) {
+            return $this->response()->error(__('记录失败'));
+        }
 
         return $this->response()->success(__('记录成功'))->refresh();
     }

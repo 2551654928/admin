@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Table;
 
 class BlogController extends AdminController
 {
@@ -38,7 +39,13 @@ class BlogController extends AdminController
         });
 
         $grid->column('id', 'ID')->sortable();
-        $grid->column('name', __('博客名称'))->editable();
+        $grid->column('name', __('博客名称'))->editable()
+            ->modal('大事记', function ($model) {
+                $datelines = $model->datelines()->get()->map(function ($dateline) {
+                    return $dateline->only(['id', 'date', 'content']);
+                });
+                return new Table(['ID', __('记录时间'), __('内容')], $datelines->toArray());
+            });
         $grid->column('avatar', __('头像'))->gravatar(20);
         $grid->column('email', __('邮箱'));
         $grid->column('link', __('链接地址'))->link()
