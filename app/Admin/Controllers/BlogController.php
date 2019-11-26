@@ -51,6 +51,10 @@ class BlogController extends AdminController
         $grid->column('created_at', __('提交时间'))->sortable()
             ->filter('range', 'datetime');
 
+        $grid->actions(function ($actions) {
+            $actions->add(new \App\Admin\Actions\Blog);
+        });
+
         return $grid;
     }
 

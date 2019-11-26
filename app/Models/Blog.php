@@ -28,4 +28,9 @@ class Blog extends Model
     {
         return $this->attributes['email'];
     }
+
+    public function datelines()
+    {
+        return $this->hasMany('App\Models\Dateline', 'blog_id', 'id');
+    }
 }

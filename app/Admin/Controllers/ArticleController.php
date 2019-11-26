@@ -51,7 +51,8 @@ class ArticleController extends AdminController
             ]);
         $grid->column('type', __('类型'))
             ->using(Article::$types)
-            ->filter(Article::$types);
+            ->filter(Article::$types)
+            ->label();
 //        $grid->column('key', __('标识'));
 //        $grid->column('updated_at', __('Updated at'));
         $grid->column('created_at', __('创建时间'))->sortable()
