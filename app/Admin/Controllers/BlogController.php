@@ -25,6 +25,7 @@ class BlogController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Blog);
+        $grid->model()->orderBy('id', 'desc');
 
         $grid->quickSearch('name', 'email', 'link', 'message');
 

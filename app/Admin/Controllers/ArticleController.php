@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\Str;
 
 class ArticleController extends AdminController
 {
@@ -25,6 +26,7 @@ class ArticleController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Article);
+        $grid->model()->orderBy('id', 'desc');
 
         $grid->quickSearch('title', 'content');
 
@@ -35,7 +37,9 @@ class ArticleController extends AdminController
 
         $grid->column('id', __('ID'));
         $grid->column('title', __('标题'));
-        // $grid->column('content', __('内容'));
+        $grid->column('content', __('内容'))->display(function ($content) {
+            return Str::limit($content, 100);
+        });
         $grid->column('is_comment', __('是否允许评论'))
             ->using([0 => __('否'), 1 => __('是')])
             ->dot([
