@@ -40,19 +40,15 @@ class BlogController extends AdminController
         $grid->column('name', __('博客名称'))->editable();
         $grid->column('avatar', __('头像'))->gravatar(20);
         $grid->column('email', __('邮箱'));
-        $grid->column('link', __('链接地址'))->link();
+        $grid->column('link', __('链接地址'))->link()
+            ->copyable();
         $grid->column('message', __('寄语'));
-        $grid->column('status', __('状态'))->filter([
-            0 => __('审核中'),
-            1 => __('审核通过'),
-            2 => __('异常'),
-        ])->editable('select', [
-            0 => __('审核中'),
-            1 => __('审核通过'),
-            2 => __('异常'),
-        ]);
+        $grid->column('status', __('状态'))
+            ->filter(Blog::$status)
+            ->editable('select', Blog::$status);
 
-        $grid->column('created_at', __('提交时间'))->sortable();
+        $grid->column('created_at', __('提交时间'))->sortable()
+            ->filter('range', 'datetime');
 
         return $grid;
     }
@@ -91,11 +87,7 @@ class BlogController extends AdminController
         $form->textarea('message', __('博主寄语'))
             ->rules('required|max:200');
         $form->radio('status', __('状态'))
-            ->options([
-                0 => __('审核中'),
-                1 => __('审核通过'),
-                2 => __('异常'),
-            ])->default(0);
+            ->options(Blog::$status)->default(0);
 
         return $form;
     }
