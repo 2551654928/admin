@@ -50,7 +50,7 @@ class TaskController extends Controller
             $promises[] = $client->getAsync($blog->link)->then(
                 function (ResponseInterface $res) {},
                 function (RequestException $e) use ($blog, $options, &$results, &$datelines) {
-                    Blog::where('id', $blog->id)->update(['status' => 2]);
+                    Blog::where('id', $blog->id)->update(['status' => 3]);
                     // 是否自动写入异常大事记
                     if ($options['auto_writing_dateline']) {
                         $date = date('Y-m-d H:i:s');
