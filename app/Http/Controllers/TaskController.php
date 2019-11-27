@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\Config;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -29,7 +30,13 @@ class TaskController extends Controller
         if (!$options['auto_detection']) {
             return ['code' => 0];
         }
-        // TODO 检测上次与本次执行的时间
+
+        $cache = 'inspect_time';
+        if (Cache::has($cache)) {
+            return ['code' => 0];
+        }
+        Cache::put($cache, time(), (3600 * $options['auto_writing_period']));
+
         $blogs = Blog::where('status', 1)->cursor();
         $client = new Client([
             'timeout' => 30,
