@@ -18,8 +18,8 @@ class HomeController extends Controller
             ->title('仪表盘')
             ->description('Description...')
             ->row(view('admin.dashboard.title'))
+            ->row(self::statistics())
             ->row(function (Row $row) {
-
                 $row->column(4, function (Column $column) {
                     $column->append(Dashboard::environment());
                 });
@@ -36,13 +36,25 @@ class HomeController extends Controller
 
     private static function blogs()
     {
-        $news = Blog::all()->where('status', 0)->take(10);
+        $news = Blog::orderBy('id', 'desc')->take(10)->get();
         return view('admin.dashboard.blogs', compact('news'));
     }
 
     private static function comments()
     {
-        $news = Comment::all()->take(10);
+        $news = Comment::orderBy('id', 'desc')->take(10)->get();
         return view('admin.dashboard.comments', compact('news'));
+    }
+
+    private static function statistics()
+    {
+        $data = [
+            'total' => Blog::count(),
+            'passed' => Blog::where('status', 1)->count(),
+            'refuse' => Blog::where('status', 2)->count(),
+            'pending' => Blog::where('status', 0)->count(),
+        ];
+
+        return view('admin.dashboard.statistics', compact('data'));
     }
 }
