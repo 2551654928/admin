@@ -26,7 +26,13 @@ class Setting extends Form
     {
         $configs = $request->all();
         foreach ($configs as $key => $val) {
-            Config::where('key', $key)->update(['value' => $val === 'on' ? 1 : 0]);
+            if (in_array($key, [
+                'review_comment', 'close_apply', 'auto_detection', 'auto_writing_dateline'
+            ])) {
+                $val = $val === 'on' ? 1 : 0;
+            }
+
+            Config::where('key', $key)->update(['value' => $val]);
         }
 
         admin_success('更新成功');
