@@ -26,7 +26,7 @@
 </style>
 
 <div class="title">
-    十年之约管理面板
+    十年之约管理控制面板
 </div>
 <div class="links">
     <a href="https://github.com/foreverblog" target="_blank">Github</a>
