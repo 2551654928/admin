@@ -2,12 +2,14 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Blog\Send;
 use App\Blog;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Encore\Admin\Widgets\Table;
+use App\Admin\Actions\Blog\Record;
 
 class BlogController extends AdminController
 {
@@ -32,10 +34,14 @@ class BlogController extends AdminController
 
         $grid->filter(function($filter) {
             $filter->disableIdFilter();
-            $filter->like('name', __('博客名称'));
-            $filter->like('email', __('邮箱'));
-            $filter->like('link', __('链接'));
-            $filter->like('message', __('寄语'));
+            $filter->column(1/2, function ($filter) {
+                $filter->like('name', __('博客名称'));
+                $filter->like('email', __('邮箱'));
+            });
+            $filter->column(1/2, function ($filter) {
+                $filter->like('link', __('链接'));
+                $filter->like('message', __('寄语'));
+            });
         });
 
         $grid->column('id', 'ID')->sortable();
@@ -59,7 +65,8 @@ class BlogController extends AdminController
             ->filter('range', 'datetime');
 
         $grid->actions(function ($actions) {
-            $actions->add(new \App\Admin\Actions\Blog);
+            $actions->add(new Record);
+            $actions->add(new Send);
         });
 
         return $grid;

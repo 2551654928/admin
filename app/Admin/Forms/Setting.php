@@ -2,7 +2,7 @@
 
 namespace App\Admin\Forms;
 
-use App\Models\Config;
+use App\Config;
 use Encore\Admin\Widgets\Form;
 use Illuminate\Http\Request;
 

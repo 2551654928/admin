@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Admin\Actions;
+namespace App\Admin\Actions\Blog;
 
-use App\Models\Dateline;
+use App\Dateline;
 use Encore\Admin\Actions\RowAction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Blog extends RowAction
+class Record extends RowAction
 {
     public $name = '记录大事记';
 
