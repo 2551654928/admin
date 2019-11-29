@@ -54,10 +54,13 @@ class Setting extends Form
         $this->switch('close_apply', __('是否关闭申请通道'))->states($states);
         $this->switch('auto_detection', __('是否开启自动检测'))->states($states)
             ->help('是否开启自动检测博客状态');
-        $this->number('auto_writing_period', __('自动检测周期'))->help('以小时为单位');
+        $this->number('auto_writing_period', __('自动检测周期'))
+            ->help('以小时为单位');
+        $this->number('max_abnormal_num', __('最大异常次数'))
+            ->help('博客当天最大异常次数, 超出后将列入异常名单');
         $this->switch('auto_writing_dateline', __('异常自动写入大事记'))
             ->states($states)
-            ->help('自动检测到博客异常后是否自动写入大事记');
+            ->help('自动检测到博客当天异常数量超出后是否自动写入大事记');
     }
 
     /**
@@ -68,7 +71,7 @@ class Setting extends Form
     public function data()
     {
         $configs = Config::all()->whereIn('key', [
-            'review_comment', 'close_apply', 'auto_detection', 'auto_writing_dateline', 'auto_writing_period'
+            'review_comment', 'close_apply', 'auto_detection', 'auto_writing_dateline', 'auto_writing_period', 'max_abnormal_num'
         ]);
         $data = [];
         foreach ($configs as $config) {

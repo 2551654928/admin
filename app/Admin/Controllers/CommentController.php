@@ -63,9 +63,8 @@ class CommentController extends AdminController
             return Str::limit($content, 100);
         });
         $grid->column('status', __('状态'))
-            ->using(Comment::$status)
-            ->filter(Comment::$status)
-            ->label();
+            ->editable('select', Comment::$status)
+            ->filter(Comment::$status);
         $grid->column('created_at', __('评论时间'));
         $grid->disableCreateButton();
 
