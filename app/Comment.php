@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,11 +23,11 @@ class Comment extends Model
 
     public function article()
     {
-        return $this->belongsTo('App\Models\Article', 'foreign_id', 'id');
+        return $this->belongsTo(Article::class, 'foreign_id', 'id');
     }
 
     public function blog()
     {
-        return $this->belongsTo('App\Models\Blog', 'foreign_id', 'id');
+        return $this->belongsTo(Blog::class, 'foreign_id', 'id');
     }
 }

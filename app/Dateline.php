@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class Dateline extends Model
 
     public function blog()
     {
-        return $this->belongsTo('App\Models\Blog', 'blog_id', 'id');
+        return $this->belongsTo(Blog::class, 'blog_id', 'id');
     }
 }

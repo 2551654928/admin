@@ -2,9 +2,9 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Article;
-use App\Models\Blog;
-use App\Models\Comment;
+use App\Article;
+use App\Blog;
+use App\Comment;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,11 +31,11 @@ class Blog extends Model
 
     public function datelines()
     {
-        return $this->hasMany('App\Models\Dateline', 'blog_id', 'id');
+        return $this->hasMany(Dateline::class, 'blog_id', 'id');
     }
 
     public function comments()
     {
-        return $this->hasMany('App\Models\Comment', 'foreign_id', 'id');
+        return $this->hasMany(Comment::class, 'foreign_id', 'id');
     }
 }
