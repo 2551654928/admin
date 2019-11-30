@@ -14,9 +14,13 @@ class Article extends Model
 
     const TYPES = ['notice' => '公告', 'article' => '文章', 'page' => '单页'];
 
-    public function comments()
+    public function comments($page = 1)
     {
-        return $this->hasMany(Comment::class, 'foreign_id', 'id');
+        return $this->hasMany(Comment::class, 'foreign_id', 'id')
+            ->with('replies')
+            ->orderBy('created_at', 'desc')
+            ->where('parent_id', 0)
+            ->paginate($page);
     }
 
     public function getReadNumStringAttribute($key)

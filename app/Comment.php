@@ -23,4 +23,9 @@ class Comment extends Model
     {
         return $this->belongsTo(Blog::class, 'foreign_id', 'id');
     }
+
+    public function replies()
+    {
+        return $this->hasMany(Comment::class, 'parent_id')->orderBy('created_at', 'asc');
+    }
 }

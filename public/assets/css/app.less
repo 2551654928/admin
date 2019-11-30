@@ -1,0 +1,188 @@
+// 内容页
+.detail.content {
+    img {
+        max-width: 100%;
+    }
+
+    table {
+        table {
+            width: 100%;
+            margin: 15px 0;
+            border: 0;
+        }
+
+        th {
+            font-weight: bold;
+            background-color: #c6f0fe;
+            color: #209bfe;
+            border: 1px solid #c6f0fe;
+            border-width: 1px;
+        }
+
+        td {
+            border: 1px solid #c6f0fe;
+            border-width: 1px;
+        }
+
+        tr {
+            border: 1px solid #ffffff;
+
+            &:nth-child(odd) {
+                background-color: #f7f7f7;
+            }
+
+            &:nth-child(even) {
+                background-color: #ffffff;
+            }
+        }
+    }
+
+    blockquote {
+        padding: 4px;
+        margin: 0 0 0 0;
+        display: block;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        -webkit-margin-start: 0;
+        -webkit-margin-end: 0;
+        border-left: solid 2px #209bfe;
+    }
+
+    p {
+        margin: 0 2px;
+    }
+}
+
+.content table, table th, table td {
+    font-size: 0.95em;
+    text-align: center;
+    padding: 4px;
+    border-collapse: collapse;
+}
+
+// 评论
+#comments-box {
+    ul li {
+        margin: 0;
+        padding: 0;
+    }
+    p {
+        margin: .5rem 0;
+    }
+
+    text-align: initial;
+
+    h4 {
+        font-weight: 500;
+        padding-bottom: 1rem;
+        margin-bottom: 0;
+        border-bottom: 1px #cfcfcf solid;
+    }
+
+    ul#comments {
+        margin: 0 0 5rem;
+        padding: 0;
+        list-style: none;
+
+        li.item {
+            .comment-item {
+                padding: .5rem 0;
+                position: relative;
+
+                .meta {
+                    img.avatar {
+                        float: left;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                    }
+
+                    p {
+                        line-height: initial;
+                        margin-bottom: .3rem;
+                        padding-left: 50px;
+
+                        &.name {
+                            color: #3fb1a3;
+                            font-weight: 500;
+                            font-size: 17px;
+                            span {
+                                border-radius: 5px;
+                                background: #5d7eff;
+                                color: white;
+                                padding: 3px 6px;
+                                font-size: 13px;
+                            }
+                        }
+
+                        &.date {
+                            color: #b4b4b4;
+                            font-size: 15px;
+                        }
+                    }
+                }
+
+                .content {
+                    word-wrap: break-word;
+                    white-space: normal;
+                    word-break: break-all;
+                    padding-right: 50px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px #e4dcdc solid;
+                }
+
+                a.reply {
+                    position: absolute;
+                    right: 0;
+                    bottom: 15px;
+                }
+            }
+            ul.children {
+                list-style: none;
+                margin-left: 30px;
+            }
+        }
+    }
+
+    .buttons {
+        text-align: center;
+    }
+
+    p.close-comment {
+        i {
+            color: #acacac;
+        }
+
+        margin: 1rem 0;
+        text-align: center;
+    }
+
+    ul.pagination {
+        list-style: none;
+        text-align: center;
+        margin-bottom: 5rem;
+        li.page-item {
+            margin: 0 .1rem;
+            display: inline-block;
+            &.disabled, &.active {
+                cursor: not-allowed;
+            }
+            &.active {
+                .page-link {
+                    background: #3fb1a3;
+                    color: white;
+                }
+            }
+            .page-link {
+                color: #8f8f8f;
+                display: block;
+                width: 2rem;
+                height: 2rem;
+                line-height: 2rem;
+                border-radius: 50%;
+                background: #ebe5e5;
+                border-bottom: 0;
+            }
+        }
+    }
+}
