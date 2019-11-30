@@ -58,8 +58,8 @@ class BlogController extends AdminController
             ->copyable();
         $grid->column('message', __('寄语'));
         $grid->column('status', __('状态'))
-            ->filter(Blog::$status)
-            ->editable('select', Blog::$status);
+            ->filter(Blog::STATUS)
+            ->editable('select', Blog::STATUS);
 
         $grid->column('created_at', __('提交时间'))->sortable()
             ->filter('range', 'datetime');
@@ -106,7 +106,7 @@ class BlogController extends AdminController
         $form->textarea('message', __('博主寄语'))
             ->rules('required|max:200');
         $form->radio('status', __('状态'))
-            ->options(Blog::$status)->default(0);
+            ->options(Blog::STATUS)->default(0);
 
         return $form;
     }

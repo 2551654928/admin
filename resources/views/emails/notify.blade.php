@@ -20,14 +20,14 @@
 </style>
 <main>
     <h2>
-        {{ $title }}
+        {{ $subtitle }}
     </h2>
     <div class="detail-container">
         <p class="detail-date">
             时间：<span>{{ date('Y-m-d H:i:s') }}</span>
         </p>
-        <p class="detail-content">{{  $content }}</p>
-        <p class="info">十年之约官方组 team@foreverblog.cn</p>
+        <p class="detail-content">{!! $content !!}</p>
+        <p class="info">十年之约项目组 team@foreverblog.cn</p>
     </div>
 </main>
 </body>
