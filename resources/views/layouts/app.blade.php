@@ -6,7 +6,7 @@
 -->
 <html>
 <head>
-    <title>@yield('title')</title>
+    <title>@yield('title', '十年之约')</title>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="zh-CN" />

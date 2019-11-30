@@ -126,24 +126,25 @@ table td {
 #comments-box p.close-comment i {
   color: #acacac;
 }
-#comments-box ul.pagination {
+ul.pagination {
   list-style: none;
   text-align: center;
-  margin-bottom: 5rem;
+  margin: 5rem 0;
 }
-#comments-box ul.pagination li.page-item {
+ul.pagination li.page-item {
+  padding: 0;
   margin: 0 0.1rem;
   display: inline-block;
 }
-#comments-box ul.pagination li.page-item.disabled,
-#comments-box ul.pagination li.page-item.active {
+ul.pagination li.page-item.disabled,
+ul.pagination li.page-item.active {
   cursor: not-allowed;
 }
-#comments-box ul.pagination li.page-item.active .page-link {
+ul.pagination li.page-item.active .page-link {
   background: #3fb1a3;
   color: white;
 }
-#comments-box ul.pagination li.page-item .page-link {
+ul.pagination li.page-item .page-link {
   color: #8f8f8f;
   display: block;
   width: 2rem;

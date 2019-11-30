@@ -156,33 +156,35 @@
         margin: 1rem 0;
         text-align: center;
     }
+}
 
-    ul.pagination {
-        list-style: none;
-        text-align: center;
-        margin-bottom: 5rem;
-        li.page-item {
-            margin: 0 .1rem;
-            display: inline-block;
-            &.disabled, &.active {
-                cursor: not-allowed;
-            }
-            &.active {
-                .page-link {
-                    background: #3fb1a3;
-                    color: white;
-                }
-            }
+// 分页样式
+ul.pagination {
+    list-style: none;
+    text-align: center;
+    margin: 5rem 0;
+    li.page-item {
+        padding: 0;
+        margin: 0 .1rem;
+        display: inline-block;
+        &.disabled, &.active {
+            cursor: not-allowed;
+        }
+        &.active {
             .page-link {
-                color: #8f8f8f;
-                display: block;
-                width: 2rem;
-                height: 2rem;
-                line-height: 2rem;
-                border-radius: 50%;
-                background: #ebe5e5;
-                border-bottom: 0;
+                background: #3fb1a3;
+                color: white;
             }
+        }
+        .page-link {
+            color: #8f8f8f;
+            display: block;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            border-radius: 50%;
+            background: #ebe5e5;
+            border-bottom: 0;
         }
     }
 }
