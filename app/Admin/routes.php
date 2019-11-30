@@ -14,6 +14,7 @@ Route::group([
     $router->get('settings', 'SettingController@index');
     $router->resource('blogs', BlogController::class);
     $router->resource('articles', ArticleController::class);
+    $router->resource('pages', PageController::class);
     $router->resource('datelines', DatelineController::class);
     $router->resource('comments', CommentController::class);
     $router->resource('/auth/users', AdminController::class);
