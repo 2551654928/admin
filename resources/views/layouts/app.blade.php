@@ -28,9 +28,9 @@
                 <li class="submenu">
                     <a href="#">更多</a>
                     <ul>
-                        <li><a href="right-sidebar.html">公告</a></li>
+                        <li><a href="{{ url('/notices.html') }}">公告</a></li>
+                        <li><a href="{{ url('/articles.html') }}">文章</a></li>
                         <li><a href="left-sidebar.html">成员</a></li>
-                        <li><a href="right-sidebar.html">动态</a></li>
                         <li><a href="{{ url('/message.html') }}">留言</a></li>
                         <li><a href="{{ url('/donate.html') }}">捐赠</a></li>
                         <li><a href="{{ url('/about.html') }}">关于</a></li>
