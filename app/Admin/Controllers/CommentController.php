@@ -46,21 +46,23 @@ class CommentController extends AdminController
         });
 
         $grid->column('id', __('ID'));
-//        $grid->column('parent_id', __('上级评论'));
         $grid->column('foreign_id', __('来源'))->display(function ($foreignId, $column) {
             if ('article' === $this->type) {
                 $article = Article::find($foreignId);
-                return '文章: ' . ($article ? $article->title : '-');
+                return  ($article ? $article->title : '-');
             }
 
             if ('blog' === $this->type) {
                 $blog = Blog::find($foreignId);
-                return '博客: ' . ($blog ? $blog->name : '-');
+                return ($blog ? $blog->name : '-');
             }
         });
         $grid->column('type', __('类型'))->using(Comment::TYPES)
             ->filter(Comment::TYPES)
-            ->label();
+            ->label([
+                'article' => 'success',
+                'blog' => 'info'
+            ]);
         $grid->column('email', __('邮箱'));
         $grid->column('name', __('名称'));
         $grid->column('link', __('链接'))
