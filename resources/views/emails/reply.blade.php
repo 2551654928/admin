@@ -21,6 +21,7 @@
 </style>
 <main>
     <h2>
+        <!-- TODO 完善跳转链接 -->
         <span>&gt; </span>
         您({{ $row->name }})在
         <a href="javascript:void(0)" target="_blank" rel="noopener">{{ $row->article->title }}</a>

@@ -2,6 +2,8 @@
 
 @section('title', '十年之约')
 
+@section('header-class', 'alt')
+
 @section('content')
     <!-- Banner -->
     <section id="banner">

@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'IndexController@index');
+Route::get('/{key?}.html', 'PageController@detail');

@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Article;
 use Encore\Admin\Controllers\AdminController;
+use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
@@ -36,6 +37,8 @@ class ArticleController extends AdminController
         });
 
         $grid->column('id', __('ID'));
+        $grid->column('name', __('发布人'));
+        $grid->column('email', __('发布人邮箱'));
         $grid->column('title', __('标题'));
         $grid->column('content', __('内容'))->display(function ($content) {
             return Str::limit($content, 300);
@@ -76,6 +79,8 @@ class ArticleController extends AdminController
         $show = new Show(Article::findOrFail($id));
 
         $show->field('id', __('ID'));
+        $show->field('name', __('发布人'));
+        $show->field('email', __('发布人邮箱'));
         $show->field('title', __('标题'));
         $show->field('content', __('内容'));
         $show->field('is_comment', __('是否允许评论'))
@@ -111,6 +116,9 @@ class ArticleController extends AdminController
         $form->radio('type', __('类型'))
             ->options(Article::TYPES)
             ->default('notice');
+
+        $form->hidden('name')->default(Admin::user()->name);
+        $form->hidden('email')->default(Admin::user()->email);
 
         return $form;
     }

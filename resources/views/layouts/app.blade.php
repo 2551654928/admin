@@ -12,13 +12,14 @@
     <meta http-equiv="Content-Language" content="zh-CN" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
 </head>
 <body class="index is-preload">
 <div id="page-wrapper">
 
     <!-- Header -->
-    <header id="header" class="alt">
+    <header id="header" class="@yield('header-class')">
         <h1 id="logo"><a href="{{ url('/') }}">十年之约</a></h1>
         <nav id="nav">
             <ul>
