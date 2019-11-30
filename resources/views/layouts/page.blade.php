@@ -9,7 +9,10 @@
         <header class="special container">
             <span class="icon solid fa-file-text"></span>
             <h2><strong>{{ $article->title }}</strong></h2>
-            <p>{{  }}</p>
+            <p>
+                {{ $article->name }} 发布于 <time style="border-bottom: 1px dashed rgb(204, 204, 204);" title="{{ $article->created_at }}">{{ $article->created_at->diffForHumans() }}</time> &middot;
+                共 {{ $article->read_num_string }} 次点击
+            </p>
         </header>
 
         <!-- One -->
@@ -17,15 +20,7 @@
 
             <!-- Content -->
             <div class="content">
-                <section>
-                    <a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>
-                    <header>
-                        <h3>Dolore Amet Consequat</h3>
-                    </header>
-                    <p>Aliquam massa urna, imperdiet sit amet mi non, bibendum euismod est. Curabitur mi justo, tincidunt vel eros ullamcorper, porta cursus justo. Cras vel neque eros. Vestibulum diam quam, mollis at consectetur non, malesuada quis augue. Morbi tincidunt pretium interdum. Morbi mattis elementum orci, nec dictum massa. Morbi eu faucibus massa. Aliquam massa urna, imperdiet sit amet mi non, bibendum euismod est. Curabitur mi justo, tincidunt vel eros ullamcorper, porta cursus justo. Cras vel neque eros. Vestibulum diam.</p>
-                    <p>Vestibulum diam quam, mollis at consectetur non, malesuada quis augue. Morbi tincidunt pretium interdum. Morbi mattis elementum orci, nec dictum porta cursus justo. Quisque ultricies lorem in ligula condimentum, et egestas turpis sagittis. Cras ac nunc urna. Nullam eget lobortis purus. Phasellus vitae tortor non est placerat tristique. Sed id sem et massa ornare pellentesque. Maecenas pharetra porta accumsan. </p>
-                    <p>In vestibulum massa quis arcu lobortis tempus. Nam pretium arcu in odio vulputate luctus. Suspendisse euismod lorem eget lacinia fringilla. Sed sed felis justo. Nunc sodales elit in laoreet aliquam. Nam gravida, nisl sit amet iaculis porttitor, risus nisi rutrum metus, non hendrerit ipsum arcu tristique est.</p>
-                </section>
+                {!! $article->content !!}
             </div>
 
         </section>
@@ -38,20 +33,20 @@
                 <form>
                     <div class="row gtr-50">
                         <div class="col-6 col-12-mobile">
-                            <input type="text" name="name" placeholder="Name">
+                            <input type="text" name="name" placeholder="名称*" required>
                         </div>
                         <div class="col-6 col-12-mobile">
-                            <input type="text" name="email" placeholder="Email">
+                            <input type="email" name="email" placeholder="邮箱地址*" required>
                         </div>
                         <div class="col-12">
-                            <input type="text" name="subject" placeholder="Subject">
+                            <input type="text" name="link" placeholder="网站">
                         </div>
                         <div class="col-12">
-                            <textarea name="message" placeholder="Message" rows="7"></textarea>
+                            <textarea name="content" placeholder="牛逼的人都会说两句" rows="3" style="resize: vertical"></textarea>
                         </div>
                         <div class="col-12">
                             <ul class="buttons">
-                                <li><input type="submit" class="special" value="Send Message"></li>
+                                <li><input type="submit" class="special" value="提交评论"></li>
                             </ul>
                         </div>
                     </div>

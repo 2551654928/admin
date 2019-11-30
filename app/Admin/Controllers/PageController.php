@@ -39,7 +39,7 @@ class PageController extends AdminController
         $grid->column('key', __('标识'))->label('danger');
         $grid->column('title', __('页面标题'));
         $grid->column('content', __('内容'))->display(function ($content) {
-            return Str::limit($content, 300);
+            return Str::limit(strip_tags($content), 150);
         });
         $grid->column('is_comment', __('是否允许评论'))
             ->using([0 => __('否'), 1 => __('是')])
