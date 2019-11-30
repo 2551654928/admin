@@ -7,10 +7,10 @@ use App\Article;
 use App\Blog;
 use App\Comment;
 use Encore\Admin\Controllers\AdminController;
+use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
-use Encore\Admin\Widgets\Table;
 use Illuminate\Support\Str;
 
 class CommentController extends AdminController
@@ -30,7 +30,7 @@ class CommentController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Comment);
-        $grid->model()->orderBy('id', 'desc')->where('parent_id', 0);
+        $grid->model()->orderBy('id', 'desc');
 
         $grid->quickSearch('email', 'name', 'link', 'content');
         $grid->filter(function($filter) {
@@ -69,8 +69,8 @@ class CommentController extends AdminController
             return Str::limit($content, 100);
         });
         $grid->column('status', __('状态'))
-            ->editable('select', Comment::STATUS)
-            ->filter(Comment::STATUS);
+            ->filter(Comment::STATUS)
+            ->editable('select', Comment::STATUS);
         $grid->column('created_at', __('评论时间'));
         $grid->disableCreateButton();
 

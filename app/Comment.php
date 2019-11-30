@@ -23,9 +23,4 @@ class Comment extends Model
     {
         return $this->belongsTo(Blog::class, 'foreign_id', 'id');
     }
-
-    public function children()
-    {
-        return $this->where('parent_id', $this->id);
-    }
 }
