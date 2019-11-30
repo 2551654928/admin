@@ -39,7 +39,7 @@ class PageController extends AdminController
         $grid->column('key', __('标识'))->label('danger');
         $grid->column('title', __('页面标题'));
         $grid->column('content', __('内容'))->display(function ($content) {
-            return Str::limit(strip_tags($content), 150);
+            return Str::limit(strip_tags($content), 100);
         });
         $grid->column('is_comment', __('是否允许评论'))
             ->using([0 => __('否'), 1 => __('是')])
@@ -111,9 +111,10 @@ class PageController extends AdminController
                 'on'  => ['value' => 1, 'text' => '是', 'color' => 'success'],
                 'off' => ['value' => 0, 'text' => '否', 'color' => 'danger'],
             ]);
-        $form->text('key', __('单页标识'))->placeholder('字母或数字组合')
+        /*$form->text('key', __('单页标识'))->placeholder('字母或数字组合')
             ->creationRules(["required", "unique:{$connection}.article"])
-            ->updateRules(["required", "unique:{$connection}.article,key,{{id}}"]);
+            ->updateRules(["required", "unique:{$connection}.article,key,{{id}}"]);*/
+        $form->text('key', __('单页标识'))->readonly();
 
         return $form;
     }

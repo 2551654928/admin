@@ -36,7 +36,7 @@ class DatelineController extends AdminController
             ->editable('datetime')
             ->filter('range', 'datetime');
         $grid->column('content', __('内容'))->display(function ($content) {
-            return Str::limit($content, 200);
+            return Str::limit(strip_tags($content, 200));
         });
         $grid->column('created_at', __('创建时间'))->sortable()
             ->filter('range', 'datetime');
