@@ -10,16 +10,9 @@ class Comment extends Model
 
     protected $dates = ['updated_at', 'created_at'];
 
-    public static $types = [];
+    const TYPES = ['article' => '文章', 'blog' => '博客'];
 
-    public static $status = [];
-
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        self::$types = ['article' => __('文章'), 'blog' => __('博客')];
-        self::$status = [__('违规'), __('正常'), __('审核中')];
-    }
+    const STATUS = ['违规', '正常', '审核中'];
 
     public function article()
     {
@@ -29,5 +22,10 @@ class Comment extends Model
     public function blog()
     {
         return $this->belongsTo(Blog::class, 'foreign_id', 'id');
+    }
+
+    public function children()
+    {
+        return $this->where('parent_id', $this->id);
     }
 }

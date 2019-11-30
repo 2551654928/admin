@@ -16,4 +16,5 @@ Route::group([
     $router->resource('articles', ArticleController::class);
     $router->resource('datelines', DatelineController::class);
     $router->resource('comments', CommentController::class);
+    $router->resource('/auth/users', AdminController::class);
 });

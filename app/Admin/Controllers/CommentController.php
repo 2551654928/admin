@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Comment\Reply;
 use App\Article;
 use App\Blog;
 use App\Comment;
@@ -9,6 +10,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Table;
 use Illuminate\Support\Str;
 
 class CommentController extends AdminController
@@ -28,20 +30,24 @@ class CommentController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Comment);
-        $grid->model()->orderBy('id', 'desc');
+        $grid->model()->orderBy('id', 'desc')->where('parent_id', 0);
 
         $grid->quickSearch('email', 'name', 'link', 'content');
         $grid->filter(function($filter) {
             $filter->disableIdFilter();
-            $filter->like('name', __('博客名称'));
-            $filter->like('email', __('邮箱'));
-            $filter->like('link', __('链接'));
-            $filter->like('content', __('内容'));
+            $filter->column(1/2, function ($filter) {
+                $filter->like('name', __('博客名称'));
+                $filter->like('email', __('邮箱'));
+            });
+            $filter->column(1/2, function ($filter) {
+                $filter->like('link', __('链接'));
+                $filter->like('content', __('内容'));
+            });
         });
 
         $grid->column('id', __('ID'));
 //        $grid->column('parent_id', __('上级评论'));
-        $grid->column('foreign_id')->display(function ($foreignId, $column) {
+        $grid->column('foreign_id', __('来源'))->display(function ($foreignId, $column) {
             if ('article' === $this->type) {
                 $article = Article::find($foreignId);
                 return '文章: ' . ($article ? $article->title : '-');
@@ -52,8 +58,8 @@ class CommentController extends AdminController
                 return '博客: ' . ($blog ? $blog->name : '-');
             }
         });
-        $grid->column('type', __('类型'))->using(Comment::$types)
-            ->filter(Comment::$types)
+        $grid->column('type', __('类型'))->using(Comment::TYPES)
+            ->filter(Comment::TYPES)
             ->label();
         $grid->column('email', __('邮箱'));
         $grid->column('name', __('名称'));
@@ -63,10 +69,14 @@ class CommentController extends AdminController
             return Str::limit($content, 100);
         });
         $grid->column('status', __('状态'))
-            ->editable('select', Comment::$status)
-            ->filter(Comment::$status);
+            ->editable('select', Comment::STATUS)
+            ->filter(Comment::STATUS);
         $grid->column('created_at', __('评论时间'));
         $grid->disableCreateButton();
+
+        $grid->actions(function ($actions) {
+            $actions->add(new Reply);
+        });
 
         return $grid;
     }
@@ -102,13 +112,13 @@ class CommentController extends AdminController
     {
         $form = new Form(new Comment);
 
-        $form->select('type', __('类型'))->options(Comment::$types)->disable();
+        $form->select('type', __('类型'))->options(Comment::TYPES)->disable();
         $form->email('email', __('邮箱'))->rules('required|email');
         $form->text('name', __('名称'))->rules('required|max:30');
         $form->url('link', __('链接'))->rules('required|url');
         $form->textarea('content', __('评论内容'));
         $form->radio('status', __('状态'))
-            ->options(Comment::$status)
+            ->options(Comment::STATUS)
             ->default(1);
 
         return $form;

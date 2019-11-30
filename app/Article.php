@@ -10,13 +10,7 @@ class Article extends Model
 
     protected $dates = ['updated_at', 'created_at'];
 
-    public static $types = [];
-
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        self::$types = ['notice' => __('公告'), 'article' => __('文章'), 'page' => __('单页')];
-    }
+    const TYPES = ['notice' => '公告', 'article' => '文章', 'page' => '单页'];
 
     public function comments()
     {

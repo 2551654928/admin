@@ -50,8 +50,8 @@ class ArticleController extends AdminController
                 0 => __('不允许评论'),
             ]);
         $grid->column('type', __('类型'))
-            ->using(Article::$types)
-            ->filter(Article::$types)
+            ->using(Article::TYPES)
+            ->filter(Article::TYPES)
             ->label();
 //        $grid->column('key', __('标识'));
 //        $grid->column('updated_at', __('Updated at'));
@@ -80,7 +80,7 @@ class ArticleController extends AdminController
                 0 => 'danger',
                 1 => 'success',
             ], 'warning');
-        $show->field('type', __('类型'))->using(Article::$types);
+        $show->field('type', __('类型'))->using(Article::TYPES);
         $show->field('key', __('标识'));
         $show->field('updated_at', __('更新时间'));
         $show->field('created_at', __('创建时间'));
