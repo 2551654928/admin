@@ -41,7 +41,7 @@ class ArticleController extends AdminController
         $grid->column('email', __('发布人邮箱'));
         $grid->column('title', __('标题'));
         $grid->column('content', __('内容'))->display(function ($content) {
-            return Str::limit(strip_tags($content, 300));
+            return Str::limit(strip_tags($content), 70);
         });
         $grid->column('is_comment', __('是否允许评论'))
             ->using([0 => __('否'), 1 => __('是')])

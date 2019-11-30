@@ -68,7 +68,7 @@ class CommentController extends AdminController
         $grid->column('link', __('链接'))
             ->link();
         $grid->column('content', __('评论内容'))->display(function ($content) {
-            return Str::limit(strip_tags($content, 100));
+            return Str::limit(strip_tags($content), 100);
         });
         $grid->column('status', __('状态'))
             ->filter(Comment::STATUS)
