@@ -29,11 +29,18 @@ class ArticleController extends AdminController
         $grid = new Grid(new Article);
         $grid->model()->orderBy('id', 'desc')->where('type', '<>', 'page');
 
-        $grid->quickSearch('title', 'content');
+        $grid->quickSearch();
 
         $grid->filter(function($filter) {
             $filter->disableIdFilter();
-            $filter->like('title', __('标题'));
+            $filter->column(1/2, function ($filter) {
+                $filter->like('title', __('标题'));
+                $filter->like('content', __('内容'));
+            });
+            $filter->column(1/2, function ($filter) {
+                $filter->like('name', __('发布人'));
+                $filter->like('email', __('发布人邮箱'));
+            });
         });
 
         $grid->column('id', __('ID'));

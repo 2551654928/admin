@@ -52,7 +52,7 @@
         </header>
         <footer>
             <ul class="buttons">
-                <li><a href="https://www.foreverblog.cn/donate.html" class="button special">捐助</a></li>
+                <li><a href="{{ url('/donate.html') }}" class="button special">捐助</a></li>
             </ul>
         </footer>
 

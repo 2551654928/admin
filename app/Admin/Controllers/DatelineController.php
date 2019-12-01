@@ -28,7 +28,7 @@ class DatelineController extends AdminController
         $grid = new Grid(new Dateline);
         $grid->model()->orderBy('id', 'desc');
 
-        $grid->quickSearch('name', 'content');
+        $grid->quickSearch();
 
         $grid->column('id', __('ID'));
          $grid->column('blog.name', __('博客名称'));

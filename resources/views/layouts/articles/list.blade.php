@@ -14,6 +14,7 @@
         <!-- One -->
         <section class="wrapper style3 container special">
 
+            @if(count($articles))
             <div class="row">
                 @foreach($articles as $article)
                     <div class="col-6 col-12-narrower">
@@ -32,6 +33,9 @@
                     </div>
                 @endforeach
             </div>
+            @else
+                <p>暂无{{ $typeText }}</p>
+            @endif
 
             {!! $articles->links() !!}
 

@@ -28,7 +28,7 @@ class PageController extends AdminController
         $grid = new Grid(new Article);
         $grid->model()->orderBy('id', 'desc')->where('type', '=', 'page');
 
-        $grid->quickSearch('title', 'content');
+        $grid->quickSearch();
         $grid->disableRowSelector();
 
         $grid->filter(function($filter) {

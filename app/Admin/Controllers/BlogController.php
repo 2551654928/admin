@@ -30,7 +30,7 @@ class BlogController extends AdminController
         $grid = new Grid(new Blog);
         $grid->model()->orderBy('id', 'desc');
 
-        $grid->quickSearch('name', 'email', 'link', 'message');
+        $grid->quickSearch();
 
         $grid->filter(function($filter) {
             $filter->disableIdFilter();
