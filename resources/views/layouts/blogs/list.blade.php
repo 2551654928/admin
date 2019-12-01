@@ -39,7 +39,7 @@
                             <img src="{{ gravatar('1591788658@qq.com') }}" alt="">
                             <div class="meta">
                                 <h4 class="name">熊二哈</h4>
-                                <span class="date">签约时间: 2019-01-04</span>
+                                <span class="date"><span class="str">签约时间: </span>2019-01-04</span>
                             </div>
                         </a>
                     </li>
