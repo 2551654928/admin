@@ -11,14 +11,17 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
-
 Route::get('/', 'IndexController@index');
 
+// 公告
 Route::get('notices.html', 'ArticleController@articles')->defaults('type', 'notice');
 Route::get('{type}/{id}.html', 'ArticleController@article');
 
+// 文章
 Route::get('articles.html', 'ArticleController@articles')->defaults('type', 'article');
 Route::get('{type}/{id}.html', 'ArticleController@article');
+
+// 博客
+Route::get('blogs.html', 'BlogController@blogs');
 
 Route::get('{key?}.html', 'PageController@detail');
