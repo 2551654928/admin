@@ -15,17 +15,19 @@
         <section class="wrapper style3 container special" id="blogs">
 
             <ul>
-                @for($i = 0; $i < 30; $i++)
+                @if(isset($blogs[1]))
+                    @foreach($blogs[1] as $blog)
                     <li>
-                        <a href="" target="_blank" rel="noopener" class="item">
-                            <img src="{{ gravatar('1591788658@qq.com') }}" alt="">
+                        <a href="" target="_blank" rel="noopener" class="item" title="{{ $blog->message }}">
+                            <img src="{{ gravatar($blog->email) }}" alt="">
                             <div class="meta">
-                                <h4 class="name">熊二哈</h4>
-                                <span class="date"><span class="str">签约时间: </span>2019-01-04</span>
+                                <h4 class="name">{{ $blog->name }}</h4>
+                                <span class="date"><span class="str">签约时间: </span>{{ $blog->adopted_at }}</span>
                             </div>
                         </a>
                     </li>
-                @endfor
+                    @endforeach
+                @endif
             </ul>
 
             <header class="container">
@@ -33,17 +35,19 @@
             </header>
 
             <ul>
-                @for($i = 0; $i < 30; $i++)
-                    <li>
-                        <a href="" target="_blank" rel="noopener" class="item gray">
-                            <img src="{{ gravatar('1591788658@qq.com') }}" alt="">
-                            <div class="meta">
-                                <h4 class="name">熊二哈</h4>
-                                <span class="date"><span class="str">签约时间: </span>2019-01-04</span>
-                            </div>
-                        </a>
-                    </li>
-                @endfor
+                @if(isset($blogs[3]))
+                    @foreach($blogs[3] as $blog)
+                        <li>
+                            <a href="" target="_blank" rel="noopener" class="item gray" title="{{ $blog->message }}">
+                                <img src="{{ gravatar($blog->email) }}" alt="">
+                                <div class="meta">
+                                    <h4 class="name">{{ $blog->name }}</h4>
+                                    <span class="date"><span class="str">签约时间: </span>{{ $blog->adopted_at }}</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+                @endif
             </ul>
 
         </section>

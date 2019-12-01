@@ -34,7 +34,7 @@
                 @endforeach
             </div>
             @else
-                <p>暂无{{ $typeText }}</p>
+                <p style="text-align: center">暂无{{ $typeText }}</p>
             @endif
 
             {!! $articles->links() !!}

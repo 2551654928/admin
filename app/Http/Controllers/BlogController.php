@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Blog;
 
 class BlogController extends Controller
 {
     public function blogs()
     {
-        return view('layouts.blogs.list');
+        $blogs = Blog::all()->whereIn('status', [1, 3])->groupBy('status');
+        return view('layouts.blogs.list', compact('blogs'));
     }
 }
