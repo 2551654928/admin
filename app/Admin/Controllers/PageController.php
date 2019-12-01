@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Article;
 use Encore\Admin\Controllers\AdminController;
+use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
@@ -100,9 +101,16 @@ class PageController extends AdminController
      */
     protected function form()
     {
+        $article = Article::find(request()->route('article'));
+
         $form = new Form(new Article);
 
-        $connection = config('admin.database.connection');
+        $form->text('name', __('发布人'))
+            ->required()
+            ->default($article->name ?: Admin::user()->name);
+        $form->text('email', __('发布人邮箱'))
+            ->required()
+            ->default($article->email ?: Admin::user()->email);
 
         $form->hidden('type')->default('page');
         $form->text('title', __('页面标题'))->required();
@@ -112,9 +120,6 @@ class PageController extends AdminController
                 'on'  => ['value' => 1, 'text' => '是', 'color' => 'success'],
                 'off' => ['value' => 0, 'text' => '否', 'color' => 'danger'],
             ]);
-        /*$form->text('key', __('单页标识'))->placeholder('字母或数字组合')
-            ->creationRules(["required", "unique:{$connection}.article"])
-            ->updateRules(["required", "unique:{$connection}.article,key,{{id}}"]);*/
         $form->text('key', __('单页标识'))->readonly();
 
         return $form;

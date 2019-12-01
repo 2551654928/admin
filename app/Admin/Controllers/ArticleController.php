@@ -110,9 +110,19 @@ class ArticleController extends AdminController
      */
     protected function form()
     {
+        $article = Article::find(request()->route('article'));
+
         $form = new Form(new Article);
 
         $form->text('title', __('标题'))->required();
+
+        $form->text('name', __('发布人'))
+            ->required()
+            ->default($article->name ?: Admin::user()->name);
+        $form->text('email', __('发布人邮箱'))
+            ->required()
+            ->default($article->email ?: Admin::user()->email);
+
         $form->summernote('content', __('内容'));
         $form->switch('is_comment', __('是否允许评论'))
             ->states([
@@ -123,9 +133,6 @@ class ArticleController extends AdminController
         $form->radio('type', __('类型'))
             ->options(Article::TYPES)
             ->default('notice');
-
-        $form->hidden('name')->default(Admin::user()->name);
-        $form->hidden('email')->default(Admin::user()->email);
 
         return $form;
     }
