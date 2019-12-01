@@ -101,7 +101,7 @@ class PageController extends AdminController
      */
     protected function form()
     {
-        $article = Article::find(request()->route('article'));
+        $article = Article::find(request()->route('page'));
 
         $form = new Form(new Article);
 
