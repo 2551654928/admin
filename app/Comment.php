@@ -10,6 +10,8 @@ class Comment extends Model
 
     protected $dates = ['updated_at', 'created_at'];
 
+    protected $appends = ['html'];
+
     const TYPES = ['article' => '文章', 'blog' => '博客'];
 
     const STATUS = ['违规', '正常', '审核中'];
@@ -27,5 +29,25 @@ class Comment extends Model
     public function replies()
     {
         return $this->hasMany(Comment::class, 'parent_id')->orderBy('created_at', 'asc');
+    }
+
+    public function getHtmlAttribute()
+    {
+        $content = htmlentities($this->attributes['content']);
+        $content = str_replace(
+            [
+                PHP_EOL, // 替换换行
+                ' ' // 替换空格
+            ],
+            [
+                '<br>',
+                '&nbsp;'
+            ],
+            $content
+        );
+        // 匹配a链接 Regex Link：https://daringfireball.net/2010/07/improved_regex_for_matching_urls
+        $regex = '@(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))@';
+        $content = preg_replace($regex, '<a class="comment-link" target="_blank" href="$1" rel="noopener">$1</a>', $content);
+        return $content;
     }
 }

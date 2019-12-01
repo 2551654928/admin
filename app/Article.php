@@ -14,7 +14,7 @@ class Article extends Model
 
     const TYPES = ['notice' => '公告', 'article' => '文章', 'page' => '单页'];
 
-    public function comments($page = 1)
+    public function comments($page = 10)
     {
         return $this->hasMany(Comment::class, 'foreign_id', 'id')
             ->with('replies')

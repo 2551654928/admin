@@ -115,7 +115,7 @@ class CommentController extends AdminController
     {
         $form = new Form(new Comment);
 
-        $form->select('type', __('类型'))->options(Comment::TYPES)->disable();
+        $form->select('type', __('类型'))->options(Comment::TYPES)->readOnly();
         $form->email('email', __('邮箱'))->rules('required|email');
         $form->text('name', __('名称'))->rules('required|max:30');
         $form->url('link', __('链接'))->rules('required|url');

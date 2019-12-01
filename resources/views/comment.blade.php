@@ -19,7 +19,7 @@
                             <p class="date" title="{{ $comment->created_at }}">{{ $comment->created_at }}</p>
                         </div>
                         <div class="content">
-                            <p>{{ $comment->content }}</p>
+                            <p>{!! $comment->html !!}</p>
                         </div>
                         <a href="" class="reply">回复</a>
                     </div>
@@ -39,7 +39,7 @@
                                             <p class="date" title="{{ $reply->created_at }}">{{ $reply->created_at }}</p>
                                         </div>
                                         <div class="content">
-                                            {{ $reply->content }}
+                                            {!! $reply->html !!}
                                         </div>
                                         <a href="" class="reply">回复</a>
                                     </div>
