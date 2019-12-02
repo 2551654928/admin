@@ -47,7 +47,7 @@ class BlogController extends AdminController
         $grid->column('id', 'ID')->sortable();
         $grid->column('name', __('博客名称'))->editable()
             ->modal('大事记', function ($model) {
-                $datelines = $model->datelines()->get()->map(function ($dateline) {
+                $datelines = $model->datelines()->orderBy('created_at', 'desc')->get()->map(function ($dateline) {
                     return $dateline->only(['id', 'date', 'content']);
                 });
                 return new Table(['ID', __('记录时间'), __('内容')], $datelines->toArray());

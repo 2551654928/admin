@@ -24,4 +24,7 @@ Route::get('{type}/{id}.html', 'ArticleController@article');
 // 博客
 Route::get('blogs.html', 'BlogController@blogs');
 
+// 评论
+Route::post('comment', 'ArticleController@comment');
+
 Route::get('{key?}.html', 'PageController@detail');

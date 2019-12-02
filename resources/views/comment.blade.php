@@ -21,7 +21,7 @@
                         <div class="content">
                             <p>{!! $comment->html !!}</p>
                         </div>
-                        <a href="" class="reply">回复</a>
+                        <a href="{{ url('', ['reply' => $comment->id, 'lz' => $comment->id]) }}" class="reply">回复</a>
                     </div>
                     @if($comment->replies)
                         <ul class="children">
@@ -36,12 +36,13 @@
                                                 @endif
                                                 <a href="{{ $reply->link }}" target="_blank">{{ $reply->name }}</a>
                                             </p>
-                                            <p class="date" title="{{ $reply->created_at }}">{{ $reply->created_at }}</p>
+                                            <p class="date"
+                                               title="{{ $reply->created_at }}">{{ $reply->created_at }}</p>
                                         </div>
                                         <div class="content">
                                             {!! $reply->html !!}
                                         </div>
-                                        <a href="" class="reply">回复</a>
+                                        <a href="{{ url('', ['reply' => $reply->id, 'lz' => $comment->id]) }}" class="reply">回复</a>
                                     </div>
                                 </li>
                             @endforeach
@@ -53,7 +54,8 @@
         {!! $article->comments()->fragment('comments-container')->links() !!}
         @if($article->is_comment)
             <p>添加新评论</p>
-            <form>
+            <form id="comment-form" method="post">
+                @csrf
                 <div class="row gtr-50">
                     <div class="col-6 col-12-mobile">
                         <input type="text" name="name" placeholder="名称*" required>
@@ -73,6 +75,9 @@
                         </ul>
                     </div>
                 </div>
+                <input type="hidden" name="parent_id" value="{{ request()->input('reply', 0) }}">
+                <input type="hidden" name="parent_id" value="{{ request()->input('lz', 0) }}">
+                <input type="hidden" name="foreign_id" value="{{ $article->id }}">
             </form>
         @else
             <p class="close-comment"><i class="fa fa-lock"></i> 管理员已禁止当前页面的评论！</p>
@@ -80,3 +85,29 @@
     </div>
 
 </section>
+
+@section('js')
+    <script>
+        $(function () {
+            $('#comment-form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "{{ url('/comment') }}",
+                    type: "post",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.code) {
+                            window.location.href = '';
+                        } else {
+                            alert('评论失败')
+                        }
+                    },
+                    error: function (error) {
+                        alert('当前无法评论, 请稍后重试')
+                    }
+                });
+            });
+        })
+    </script>
+@endsection
