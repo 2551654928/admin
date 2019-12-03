@@ -29,7 +29,11 @@ class ArticleController extends Controller
     {
         $replyId = $request->input('reply_id');
         $parentId = $request->input('parent_id');
-        $validator = Validator::make($request->all(), [
+        $all =  $request->all();
+        if (isset($data['link'])) {
+            if ($all['link'] === '') unset($all['link']);
+        }
+        $validator = Validator::make($all, [
             'parent_id' => 'required|numeric',
             'foreign_id' => 'required|numeric',
             'name' => 'required|min:2|max:20',
