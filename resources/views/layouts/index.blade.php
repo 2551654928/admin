@@ -22,7 +22,7 @@
             <p>一个人的寂寞，一群人的狂欢。</p>
             <footer>
                 <ul class="buttons vertical">
-                    <li><a href="https://www.foreverblog.cn/links.html" class="button fit scrolly">查看成员</a></li>
+                    <li><a href="{{ url('/blogs.html') }}" class="button fit scrolly">查看成员</a></li>
                 </ul>
             </footer>
         </div>
@@ -47,7 +47,7 @@
             <p></p><center>十年之约官网将记录所有成员的加入时间、履约情况、博客大事记、博客陨落时间等信息！</center><p></p>
             <footer>
                 <ul class="buttons">
-                    <center><li><a href="http://join.foreverblog.cn" class="button">申请加入</a></li></center>
+                    <center><li><a href="{{ url('/join.html') }}" class="button">申请加入</a></li></center>
                 </ul>
             </footer>
         </section>
