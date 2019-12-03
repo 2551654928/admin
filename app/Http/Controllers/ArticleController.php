@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Comment;
+use App\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -43,8 +44,9 @@ class ArticleController extends Controller
         if (!$article = Article::find($data['foreign_id'])) {
             return ['code' => 0, 'message' => '不存在的资源'];
         }
+        $isReview = Config::where('key', 'review_comment')->first();
         $data['is_admin'] = 0;
-        $data['status'] = 2;
+        $data['status'] = $isReview == 1 ? 2 : 1;
         $data['ip'] = $request->getClientIp();
         $data['type'] = $article->type;
         if ($created = Comment::create($data)) {

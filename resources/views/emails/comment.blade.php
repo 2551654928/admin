@@ -23,7 +23,7 @@
     <h2>
         <span>&gt; </span>
         您({{ $article->name }})发布的{{ $types[$article->type] }}
-        <a href="{{ url()->previous() }}" target="_blank" rel="noopener">{{ $article->title }}</a>
+        <a href="{{ url()->previous() }}" target="_blank" rel="noopener"><{{ $article->title }}></a>
         有了新的评论
     </h2>
     <div class="detail-container">
