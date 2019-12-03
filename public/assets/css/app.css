@@ -225,6 +225,13 @@ ul.pagination li.page-item .page-link {
   font-size: 14px;
   color: gray;
 }
+#cancel-reply {
+  display: none;
+  float: right;
+}
+#comment-form {
+  margin-top: 1rem;
+}
 @media screen and (max-width: 1680px) {
   #blogs ul li {
     width: calc(25% - 5px);

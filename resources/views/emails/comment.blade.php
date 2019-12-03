@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Reply notice</title>
+    <title>Comment notice</title>
 </head>
 <body>
 <style>
@@ -22,21 +22,18 @@
 <main>
     <h2>
         <span>&gt; </span>
-        您({{ $row->name }})在
-        <a href="{{ url()->current() }}" target="_blank" rel="noopener">{{ $row->article->title }}</a>
-        的评论有了新的回复
+        您({{ $article->name }})发布的{{ $types[$article->type] }}
+        <a href="{{ url()->previous() }}" target="_blank" rel="noopener">{{ $article->title }}</a>
+        有了新的评论
     </h2>
     <div class="detail-container">
         <p class="detail-date">
             时间：<span>{{ $comment->created_at }}</span>
         </p>
-        <p>你的评论：</p>
-        <p class="detail-content">{!! $row->content !!}</p>
-        <p><strong>{{ ($comment->is_admin ? '[管理员] ' : '') . $comment->name }}</strong> 回复说：</p>
-        <p class="detail-reply">{!! $comment->content !!}</p>
+        <p><strong>{{ ($comment->is_admin ? '[管理员] ' : '') . $comment->name }}</strong> 评论说：</p>
+        <p class="detail-content">{!! $comment->content !!}</p>
         <p class="info">
-            您可以点击<a href="{{ url()->current().'#comment-form' }}" target="_blank" rel="noopener">
-                查看回复的完整內容</a>。<br>
+            如需回复, 请登录管理员后台进行操作。<br>
             本邮件为自动发送，请勿直接回复，如有疑问，请联系
             <a href="mailto:admin@foreverblog.cn" target="_blank" rel="noopener">admin@foreverblog.cn</a>，
         </p>

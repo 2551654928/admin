@@ -3,7 +3,7 @@
 
     <!-- Content -->
     <div class="content" id="comments-box">
-        <h4>共有 {{ $article->comments()->total() }} 条评论</h4>
+        <h4>共有 {{ $article->getCommentCount() }} 条评论</h4>
         <ul id="comments">
             @foreach($article->comments() as $comment)
                 <li class="item">
@@ -21,7 +21,7 @@
                         <div class="content">
                             <p>{!! $comment->html !!}</p>
                         </div>
-                        <a href="{{ url('', ['reply' => $comment->id, 'lz' => $comment->id]) }}" class="reply">回复</a>
+                        <a href="javascript:void(0)" class="reply" data-parent-id="{{ $comment->id }}" data-reply-id="{{ $comment->id }}" data-at="{{ "@{$comment->name} " }}">回复</a>
                     </div>
                     @if($comment->replies)
                         <ul class="children">
@@ -42,7 +42,7 @@
                                         <div class="content">
                                             {!! $reply->html !!}
                                         </div>
-                                        <a href="{{ url('', ['reply' => $reply->id, 'lz' => $comment->id]) }}" class="reply">回复</a>
+                                        <a href="javascript:void(0)" class="reply" data-parent-id="{{ $comment->id }}" data-reply-id="{{ $reply->id }}" data-at="{{ "@{$reply->name} " }}">回复</a>
                                     </div>
                                 </li>
                             @endforeach
@@ -53,7 +53,8 @@
         </ul>
         {!! $article->comments()->fragment('comments-container')->links() !!}
         @if($article->is_comment)
-            <p>添加新评论</p>
+            <p>添加新评论<a href="javascript:void(0)" id="cancel-reply" data-at="">取消回复</a></p>
+            <div style="clear: both"></div>
             <form id="comment-form" method="post">
                 @csrf
                 <div class="row gtr-50">
@@ -75,8 +76,8 @@
                         </ul>
                     </div>
                 </div>
-                <input type="hidden" name="parent_id" value="{{ request()->input('reply', 0) }}">
-                <input type="hidden" name="parent_id" value="{{ request()->input('lz', 0) }}">
+                <input type="hidden" name="reply_id" value="0">
+                <input type="hidden" name="parent_id" value="0">
                 <input type="hidden" name="foreign_id" value="{{ $article->id }}">
             </form>
         @else
@@ -89,6 +90,10 @@
 @section('js')
     <script>
         $(function () {
+            $reply = $('input[name=reply_id]');
+            $parent = $('input[name=parent_id]');
+            $content = $('textarea[name=content]');
+
             $('#comment-form').submit(function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -97,16 +102,35 @@
                     data: $(this).serialize(),
                     dataType: "json",
                     success: function (response) {
+                        alert(response.message);
                         if (response.code) {
                             window.location.href = '';
-                        } else {
-                            alert('评论失败')
                         }
                     },
                     error: function (error) {
                         alert('当前无法评论, 请稍后重试')
                     }
                 });
+            });
+
+            $('#cancel-reply').click(function (e) {
+                e.preventDefault();
+                $parent.val(0);
+                $reply.val(0);
+                var regex = new RegExp($(this).data('at'));
+                $content.val($content.val().replace(regex, ''));
+                $('#cancel-reply').hide();
+            });
+
+            $('a.reply').click(function (e) {
+                e.preventDefault();
+                $parent.val($(this).data('parent-id'));
+                $reply.val($(this).data('reply-id'));
+                $content.val($(this).data('at') + $content.val());
+                $('#cancel-reply').data('at', $(this).data('at')).show();
+                $("html, body").animate({
+                    scrollTop: $('#comment-form').offset().top - 160 + "px"
+                }, 500);
             });
         })
     </script>

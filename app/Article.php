@@ -20,7 +20,13 @@ class Article extends Model
             ->with('replies')
             ->orderBy('created_at', 'desc')
             ->where('parent_id', 0)
+            ->where('status', 1)
             ->paginate($page);
+    }
+
+    public function getCommentCount()
+    {
+        return Comment::where('foreign_id', $this->id)->where('status', 1)->count();
     }
 
     public function getReadNumStringAttribute($key)

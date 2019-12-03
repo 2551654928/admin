@@ -12,6 +12,8 @@ class Comment extends Model
 
     protected $appends = ['html'];
 
+    protected $fillable = ['parent_id', 'foreign_id', 'name', 'email', 'link', 'content'];
+
     const TYPES = ['article' => '文章', 'blog' => '博客'];
 
     const STATUS = ['违规', '正常', '审核中'];
