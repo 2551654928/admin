@@ -16,7 +16,7 @@ class Blog extends Model
 
     public function getAvatarAttribute($value)
     {
-        return $this->attributes['email'];
+        return gravatar($this->attributes['email']);
     }
 
     public function datelines()

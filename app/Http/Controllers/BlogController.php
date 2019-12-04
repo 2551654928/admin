@@ -11,4 +11,9 @@ class BlogController extends Controller
         $blogs = Blog::all()->whereIn('status', [1, 3])->groupBy('status');
         return view('layouts.blogs.list', compact('blogs'));
     }
+
+    public function join()
+    {
+        return view('layouts.blogs.join');
+    }
 }

@@ -24,6 +24,9 @@ Route::get('{type}/{id}.html', 'ArticleController@article');
 // 博客
 Route::get('blogs.html', 'BlogController@blogs');
 
+// 申请加入
+Route::any('join.html', 'BlogController@join');
+
 // 评论
 Route::post('comment', 'ArticleController@comment');
 

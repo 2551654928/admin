@@ -52,7 +52,9 @@ class BlogController extends AdminController
                 });
                 return new Table(['ID', __('记录时间'), __('内容')], $datelines->toArray());
             });
-        $grid->column('avatar', __('头像'))->gravatar(20);
+        $grid->column('avatar', __('头像'))->display(function ($avatar) {
+            return '<img style="border-radius: 50%" width="20" src="'.$avatar.'">';
+        });
         $grid->column('email', __('邮箱'));
         $grid->column('link', __('链接地址'))->link()
             ->copyable();
