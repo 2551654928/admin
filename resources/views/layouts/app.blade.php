@@ -36,7 +36,7 @@
                         <li><a href="{{ url('/about.html') }}">关于</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ url('/join.html') }}" class="button primary">申请加入</a></li>
+                <li><a href="{{ url('/treaty.html') }}" class="button primary">申请加入</a></li>
             </ul>
         </nav>
     </header>
