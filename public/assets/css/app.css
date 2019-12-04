@@ -56,6 +56,7 @@ table td {
 }
 #comments-box p {
   margin: 0.5rem 0;
+  position: relative;
 }
 #comments-box h4 {
   font-weight: 500;
@@ -227,7 +228,8 @@ ul.pagination li.page-item .page-link {
 }
 #cancel-reply {
   display: none;
-  float: right;
+  position: absolute;
+  right: 0;
 }
 #comment-form {
   margin-top: 1rem;

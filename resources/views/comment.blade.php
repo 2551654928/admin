@@ -90,6 +90,7 @@
 @section('js')
     <script>
         $(function () {
+            var at = '';
             $reply = $('input[name=reply_id]');
             $parent = $('input[name=parent_id]');
             $content = $('textarea[name=content]');
@@ -117,7 +118,7 @@
                 e.preventDefault();
                 $parent.val(0);
                 $reply.val(0);
-                var regex = new RegExp($(this).data('at'));
+                var regex = new RegExp(at);
                 $content.val($content.val().replace(regex, ''));
                 $('#cancel-reply').hide();
             });
@@ -126,8 +127,14 @@
                 e.preventDefault();
                 $parent.val($(this).data('parent-id'));
                 $reply.val($(this).data('reply-id'));
-                $content.val($(this).data('at') + $content.val());
-                $('#cancel-reply').data('at', $(this).data('at')).show();
+
+                var regex = new RegExp(at);
+                $content.val(($content.val()).replace(regex, ''));
+
+                at = $(this).data('at');
+                $content.val(at + $content.val());
+
+                $('#cancel-reply').data('at', at).show();
                 $("html, body").animate({
                     scrollTop: $('#comment-form').offset().top - 160 + "px"
                 }, 500);
