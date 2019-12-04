@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Blog;
+use App\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +17,14 @@ class BlogController extends Controller
 
     public function join(Request $request)
     {
+        // 系统是否开启申请系统
+        $config = Config::where('key', 'close_apply')->first();
+        $closeApply = $config->value == 1 ? true : false;
         if ($request->isMethod('post')) {
+            if ($closeApply) {
+                return ['code' => 0, 'message' => '申请系统已被管理员关闭!'];
+            }
+
             $email = $request->input('email');
             if (Blog::where('email', $email)->where('status', '<>', 2)->count()) {
                 return ['code' => 0, 'message' => '检测到系统已存在该邮箱, 同一个邮箱只允许申请一次!'];
@@ -48,6 +56,6 @@ class BlogController extends Controller
             return ['code' => 1, 'message' => '申请成功, 请耐心等待审核, 结果会以邮件形式通知到您的邮箱!'];
         }
 
-        return view('layouts.blogs.join');
+        return view('layouts.blogs.join', compact('closeApply'));
     }
 }

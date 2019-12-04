@@ -266,7 +266,12 @@ input.email {
     border-top: none;
 }
 
-.contact input[type="submit"]:hover {
+.contact input[type="submit"][disabled] {
+    background: #727c88;
+    border-bottom: 3px solid #525a63;
+}
+
+.contact input[type="submit"]:not([disabled]):hover {
     background: #3B73B3;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;

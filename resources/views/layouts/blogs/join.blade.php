@@ -30,7 +30,11 @@
         <img src="{{ captcha_src() }}" id="verify">
         <br>
         <input type="text" required="" name="captcha" autocomplete="off">
-        <input type="submit" value="确认提交"/>
+        @if($closeApply)
+            <input type="submit" value="已关闭申请系统" disabled>
+        @else
+            <input type="submit" value="确认提交"/>
+        @endif
     </form>
 </div>
 <div class="copyright">
@@ -44,6 +48,7 @@
         $(this).attr('src', ("{{ url('/captcha/default') }}" + "?date=" + new Date().getTime()));
     });
 </script>
+@if(!$closeApply)
 <script type="text/javascript">
     $('form').submit(function (e) {
         e.preventDefault();
@@ -64,3 +69,4 @@
         });
     });
 </script>
+@endif
