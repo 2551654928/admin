@@ -14,7 +14,7 @@
 <body>
 <h1>十年之约</h1>
 <div class="contact">
-    <h2>Join Us</h2>
+    <a href="{{ url('/') }}"><h2>Join Us</h2></a>
     <p>十年之约到底是什么？ 访问了解： <a href="{{ url('/about.html') }}" target="_blank" title="十年之约">点击这里</a></p>
     <form action="{{ url('/join.html') }}" method="post">
         @csrf
