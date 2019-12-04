@@ -16,19 +16,20 @@
 <div class="contact">
     <h2>Join Us</h2>
     <p>十年之约到底是什么？ 访问了解： <a href="{{ url('/about.html') }}" target="_blank" title="十年之约">点击这里</a></p>
-    <form action="" method="post">
+    <form action="{{ url('/join.html') }}" method="post">
+        @csrf
         <h3>博客名称 <span>*</span></h3>
-        <input type="text" class="user active" required="" name="name">
-        <h3>网站地址 <span>*</span></h3>
-        <input type="text" class="url" required="" name="link">
+        <input type="text" class="user active" required="" name="name" autocomplete="off">
         <h3>邮箱 <span>*</span></h3>
-        <input type="text" class="email" required="" name="email">
+        <input type="text" class="email" required="" name="email" autocomplete="off">
+        <h3>网站地址 <span>*</span></h3>
+        <input type="text" class="url" required="" name="link" autocomplete="off">
         <h3>博主寄语 <span>*</span></h3>
         <textarea class="i" name="message" required></textarea>
         <h3>验证码 <span>*</span></h3>
-        <img src="/index/verify.html" id="verify">
+        <img src="{{ captcha_src() }}" id="verify">
         <br>
-        <input type="text" required="" name="captcha">
+        <input type="text" required="" name="captcha" autocomplete="off">
         <input type="submit" value="确认提交"/>
     </form>
 </div>
@@ -40,24 +41,26 @@
 <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
 <script type="text/javascript">
     $('#verify').click(function () {
-        var url = "/index/verify.html" + "?date=" + new Date().getTime();
-        $(this).attr('src', url);
+        $(this).attr('src', ("{{ url('/captcha/default') }}" + "?date=" + new Date().getTime()));
     });
 </script>
 <script type="text/javascript">
-    $('form').submit(function () {
-        $(this).ajaxSubmit({
-            url: "/index/index.html",
+    $('form').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: this.action,
             type: 'post',
-            dataType: 'json',
-            success: function (msg) {
-                if (msg.status == 1) {
-                    location.href = '/Index/successfully';
-                } else {
-                    layer.msg(msg.msg);
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function (response) {
+                alert(response.message);
+                if (response.code) {
+                    window.location.href = "{{ url('/') }}";
                 }
+            },
+            error: function () {
+                alert('申请失败, 请稍后重试');
             }
         });
-        return false;
     });
 </script>

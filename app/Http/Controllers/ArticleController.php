@@ -38,8 +38,11 @@ class ArticleController extends Controller
             'foreign_id' => 'required|numeric',
             'name' => 'required|min:2|max:20',
             'email' => 'required|email',
-            'link' => 'url|max:30',
+            'link' => 'url|max:50',
             'content' => 'required|min:2|max:999'
+        ], [
+            'link.url' => '网站地址不正确',
+            'link.max' => '网站地址过长, 最多 50 个字符',
         ]);
         if ($validator->fails()) {
             return ['code' => 0, 'message' => $validator->errors()->first()];
