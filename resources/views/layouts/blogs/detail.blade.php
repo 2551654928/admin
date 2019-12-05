@@ -30,18 +30,12 @@
                         </div>
                         <div class="cright">
                             <h2>大事记</h2>
+                            @foreach($blog->datelines as $dateline)
                             <div class="item">
-                                <blockquote><p>2017/11/14</p></blockquote>
-                                <p>加入十年之约</p>
+                                <blockquote><p>{{ $dateline->date }}</p></blockquote>
+                                <p>{{ $dateline->content }}</p>
                             </div>
-                            <div class="item">
-                                <blockquote><p>2017/11/14</p></blockquote>
-                                <p>加入十年之约</p>
-                            </div>
-                            <div class="item">
-                                <blockquote><p>2017/11/14</p></blockquote>
-                                <p>加入十年之约</p>
-                            </div>
+                            @endforeach
                         </div>
 
                     </section>

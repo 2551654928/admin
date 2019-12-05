@@ -258,6 +258,11 @@ ul.pagination li.page-item .page-link {
 }
 .cleft a {
   border-bottom: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 .linkbtn {
   background-color: #8ca8c5;
@@ -284,6 +289,8 @@ ul.pagination li.page-item .page-link {
 .cright {
   padding-left: 15px;
   width: 50%;
+  max-height: 500px;
+  overflow: auto;
 }
 .cright h2 {
   margin-bottom: 0.5rem;
