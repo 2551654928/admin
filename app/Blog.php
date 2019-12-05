@@ -23,7 +23,7 @@ class Blog extends Model
 
     public function datelines()
     {
-        return $this->hasMany(Dateline::class, 'blog_id', 'id');
+        return $this->hasMany(Dateline::class, 'blog_id', 'id')->orderByDesc('created_at');
     }
 
     public function comments()

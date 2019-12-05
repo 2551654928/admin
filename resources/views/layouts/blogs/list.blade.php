@@ -22,7 +22,7 @@
                             <img src="{{ gravatar($blog->email) }}" alt="">
                             <div class="meta">
                                 <h4 class="name">{{ $blog->name }}</h4>
-                                <span class="date"><span class="str">签约时间: </span>{{ $blog->adopted_at }}</span>
+                                <span class="date"><span class="str">签约时间: </span>{{ $blog->adopted_at->format('Y-m-d') }}</span>
                             </div>
                         </a>
                     </li>

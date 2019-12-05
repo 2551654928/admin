@@ -15,6 +15,12 @@ class BlogController extends Controller
         return view('layouts.blogs.list', compact('blogs'));
     }
 
+    public function blog(Request $request)
+    {
+        $blog = Blog::findOrFail($request->route('id'));
+        return view('layouts.blogs.detail', compact('blog'));
+    }
+
     public function join(Request $request)
     {
         // 系统是否开启申请系统

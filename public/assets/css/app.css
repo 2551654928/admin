@@ -234,6 +234,90 @@ ul.pagination li.page-item .page-link {
 #comment-form {
   margin-top: 1rem;
 }
+.adapro {
+  display: flex;
+}
+.cleft {
+  width: 50%;
+  border-radius: 5px;
+  background-color: #f3f6fa;
+  text-align: center;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+.cleft img {
+  border-radius: 50%;
+  width: 150px;
+  margin-top: 40px;
+}
+.cleft p {
+  text-align: left;
+  margin: 30px;
+}
+.cleft a {
+  border-bottom: none;
+}
+.linkbtn {
+  background-color: #8ca8c5;
+  color: #fff;
+  text-align: center;
+}
+.subscript {
+  color: #fff;
+  height: 30px;
+  width: 160px;
+  position: absolute;
+  right: -40px;
+  text-align: center;
+  line-height: 30px;
+  font-family: "黑体";
+  background-color: #ee0c16;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  padding-left: 30px;
+}
+.cright {
+  padding-left: 15px;
+  width: 50%;
+}
+.cright h2 {
+  margin-bottom: 0.5rem;
+}
+.cright img {
+  max-width: 100%;
+}
+.cright p {
+  padding-left: 15px;
+  margin-bottom: 15px;
+}
+.cright blockquote {
+  background-color: #f3f6fa;
+  color: #888;
+  margin: 0;
+  padding: 0;
+  border-left: solid 0.5em #8ca8c5;
+}
+.cright blockquote p {
+  margin: 0 0 5px 0;
+}
+@media only screen and (max-width: 767px) {
+  .adapro {
+    display: block;
+  }
+  .cleft,
+  .cright {
+    width: 100%;
+  }
+  .cright {
+    margin-top: 20px;
+    padding-left: 0;
+  }
+}
 @media screen and (max-width: 1680px) {
   #blogs ul li {
     width: calc(25% - 5px);

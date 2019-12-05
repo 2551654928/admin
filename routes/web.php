@@ -15,14 +15,15 @@ Route::get('/', 'IndexController@index');
 
 // 公告
 Route::get('notices.html', 'ArticleController@articles')->defaults('type', 'notice');
-Route::get('{type}/{id}.html', 'ArticleController@article');
+Route::get('notice/{id}.html', 'ArticleController@article')->defaults('type', 'notice');
 
 // 文章
 Route::get('articles.html', 'ArticleController@articles')->defaults('type', 'article');
-Route::get('{type}/{id}.html', 'ArticleController@article');
+Route::get('article/{id}.html', 'ArticleController@article')->defaults('type', 'article');
 
 // 博客
 Route::get('blogs.html', 'BlogController@blogs');
+Route::get('blog/{id}.html', 'BlogController@blog');
 
 // 申请加入
 Route::any('join.html', 'BlogController@join');
