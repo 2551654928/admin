@@ -118,10 +118,10 @@ class ArticleController extends AdminController
 
         $form->text('name', __('发布人'))
             ->required()
-            ->default($article->name ?: Admin::user()->name);
+            ->default(($article ? $article->name : false) ?: Admin::user()->name);
         $form->text('email', __('发布人邮箱'))
             ->required()
-            ->default($article->email ?: Admin::user()->email);
+            ->default(($article ? $article->email : false) ?: Admin::user()->email);
 
         $form->summernote('content', __('内容'));
         $form->switch('is_comment', __('是否允许评论'))
