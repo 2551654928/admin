@@ -33,7 +33,7 @@
         <p><strong>{{ ($comment->is_admin ? '[管理员] ' : '') . $comment->name }}</strong> 评论说：</p>
         <p class="detail-content">{!! $comment->content !!}</p>
         <p class="info">
-            您可以点击<a href="{{ url()->previous().'#comment-form' }}" target="_blank" rel="noopener">
+            您可以点击<a href="{{ url()->previous().'#comments-container' }}" target="_blank" rel="noopener">
                 查看回复的完整內容</a>。<br>
             本邮件为自动发送，请勿直接回复，如有疑问，请联系
             <a href="mailto:admin@foreverblog.cn" target="_blank" rel="noopener">admin@foreverblog.cn</a>

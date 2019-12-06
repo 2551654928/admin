@@ -6,7 +6,6 @@ use App\Article;
 use App\Comment;
 use App\Config;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
