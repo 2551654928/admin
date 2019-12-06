@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class Comment extends Model
 {
@@ -51,5 +52,66 @@ class Comment extends Model
         $regex = '@(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))@';
         $content = preg_replace($regex, '<a class="comment-link" target="_blank" href="$1" rel="noopener">$1</a>', $content);
         return $content;
+    }
+
+    /**
+     * 发送评论邮件
+     *
+     * @param Comment $comment  新插入的评论
+     * @param string $email     收件人邮箱
+     * @param string $subject   邮件主题
+     * @param string $name      收件人名称
+     * @param string $title     发布内容标题
+     * @param string $type      发布内容类型
+     * @param string $content   评论内容
+     */
+    public static function sendCommentEmail(
+        Comment $comment,
+        string $email,
+        string $subject,
+        string $name,
+        string $title,
+        string $type,
+        string $content
+    ) {
+        Mail::send('emails.comment', [
+            'title' => $title,
+            'name' => $name,
+            'comment' => $comment,
+            'type' => $type,
+            'content' => str_replace(PHP_EOL, '<br />', $content),
+        ], function ($mail) use ($email, $subject) {
+            $mail->to($email);
+            $mail->subject($subject);
+        });
+    }
+
+    /**
+     * 发送回复邮件
+     *
+     * @param Comment $row      原评论
+     * @param Comment $comment  新插入的评论
+     * @param string $title     发布内容标题
+     * @param string $email     收件人邮箱
+     * @param string $subject   邮件主题
+     * @param string $content   邮件内容
+     */
+    public static function sendReplyEmail(
+        Comment $row,
+        Comment $comment,
+        string $title,
+        string $email,
+        string $subject,
+        string $content
+    ) {
+        Mail::send('emails.reply', [
+            'title' => $title,
+            'row' => $row,
+            'comment' => $comment,
+            'content' => str_replace(PHP_EOL, '<br />', $content)
+        ], function ($mail) use ($email, $subject) {
+            $mail->to($email);
+            $mail->subject($subject);
+        });
     }
 }

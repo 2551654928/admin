@@ -33,7 +33,7 @@ class CommentController extends Controller
                     // 给被回复对象发邮件
                     $types = Article::TYPES;
                     $subject = "【十年之约】{$types[$article->type]} <{$article->title}> 有了新的评论";
-                    $this->sendCommentEmail(
+                    Comment::sendCommentEmail(
                         $created,
                         $article->email,
                         $subject,
@@ -49,7 +49,7 @@ class CommentController extends Controller
                         throw new \Exception('回复对象不存在');
                     }
                     // 给被回复对象发邮件
-                    $this->sendReplyEmail(
+                    Comment::sendReplyEmail(
                         $comment,
                         $created,
                         $comment->article->title,
@@ -63,67 +63,6 @@ class CommentController extends Controller
             return ['code' => 0, 'line' => $e->getLine(), 'message' => $e->getMessage()];
         }
         return ['code' => 1, 'message' => '评论成功, 审核通过后显示'];
-    }
-
-    /**
-     * 发送评论邮件
-     *
-     * @param Comment $comment  新插入的评论
-     * @param string $email     收件人邮箱
-     * @param string $subject   邮件主题
-     * @param string $name      收件人名称
-     * @param string $title     发布内容标题
-     * @param string $type      发布内容类型
-     * @param string $content   评论内容
-     */
-    private function sendCommentEmail(
-        Comment $comment,
-        string $email,
-        string $subject,
-        string $name,
-        string $title,
-        string $type,
-        string $content
-    ) {
-        Mail::send('emails.comment', [
-            'title' => $title,
-            'name' => $name,
-            'comment' => $comment,
-            'type' => $type,
-            'content' => str_replace(PHP_EOL, '<br />', $content),
-        ], function ($mail) use ($email, $subject) {
-            $mail->to($email);
-            $mail->subject($subject);
-        });
-    }
-
-    /**
-     * 发送回复邮件
-     *
-     * @param Comment $row      原评论
-     * @param Comment $comment  新插入的评论
-     * @param string $title     发布内容标题
-     * @param string $email     收件人邮箱
-     * @param string $subject   邮件主题
-     * @param string $content   邮件内容
-     */
-    private function sendReplyEmail(
-        Comment $row,
-        Comment $comment,
-        string $title,
-        string $email,
-        string $subject,
-        string $content
-    ) {
-        Mail::send('emails.reply', [
-            'title' => $title,
-            'row' => $row,
-            'comment' => $comment,
-            'content' => str_replace(PHP_EOL, '<br />', $content)
-        ], function ($mail) use ($email, $subject) {
-            $mail->to($email);
-            $mail->subject($subject);
-        });
     }
 
     /**
