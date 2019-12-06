@@ -59,10 +59,10 @@
                 @csrf
                 <div class="row gtr-50">
                     <div class="col-6 col-12-mobile">
-                        <input type="text" name="name" placeholder="名称*" required>
+                        <input type="text" name="name" placeholder="名称*" value="{{ \Encore\Admin\Facades\Admin::user() ? \Encore\Admin\Facades\Admin::user()->name : '' }}" required>
                     </div>
                     <div class="col-6 col-12-mobile">
-                        <input type="email" name="email" placeholder="邮箱地址*" required>
+                        <input type="email" name="email" placeholder="邮箱地址*" value="{{ \Encore\Admin\Facades\Admin::user() ? \Encore\Admin\Facades\Admin::user()->email : '' }}" required>
                     </div>
                     <div class="col-12">
                         <input type="text" name="link" placeholder="网站">
@@ -105,7 +105,7 @@
                     success: function (response) {
                         alert(response.message);
                         if (response.code) {
-                            // window.location.href = '';
+                            window.location.href = '';
                         }
                     },
                     error: function (error) {

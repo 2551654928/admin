@@ -2,12 +2,13 @@
 
 namespace App\Admin\Actions\Comment;
 
+use App\Article;
+use App\Blog;
 use App\Comment;
 use Encore\Admin\Actions\RowAction;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class Reply extends RowAction
 {
@@ -15,8 +16,32 @@ class Reply extends RowAction
 
     public function handle(Model $model, Request $request)
     {
+        $type = $this->row->type;
+        $title = '';
+        $url = config('app.url');
+        if ($type === 'blog') {
+            if (!$blog = Blog::find($this->row->foreign_id)) {
+                return $this->response()->error('该评论来源博客已被删除, 无法回复');
+            }
+            $title = $blog->name;
+            $url = url("/blog/{$blog->id}.html");
+        }
+
+        if ($type === 'article') {
+            if (!$article = Article::find($this->row->foreign_id)) {
+                return $this->response()->error('该评论来源数据已被删除, 无法回复');
+            }
+            $title = $article->title;
+            if ($article->type === 'page') {
+                $url = url("/{$article->key}.html");
+            } else {
+                $url = url("/{$article->type}/{$blog->id}.html");
+            }
+        }
+
         $sendEmail = $request->input('send_email', 0);
         $content = $request->input('content');
+        $content = "@{$this->row->name} ".$content;
 
         $comment = new Comment;
         $comment->parent_id = $this->row->parent_id ? $this->row->parent_id : $this->row->id;
@@ -32,21 +57,16 @@ class Reply extends RowAction
         $comment->save();
 
         if ($sendEmail) {
-            $content = str_replace([
-                PHP_EOL,
-            ], [
-                '<br />',
-            ], $content);
-
             $email = $this->row->email;
-            Mail::send('emails.reply', [
-                'row' => $this->row,
-                'comment' => $comment,
-                'content' => $content
-            ], function ($mail) use ($email) {
-                $mail->to($email);
-                $mail->subject('【十年之约】回复通知');
-            });
+            Comment::sendReplyEmail(
+                $this->row,
+                $comment,
+                $title,
+                $email,
+                '【十年之约】回复通知',
+                $content,
+                $url
+            );
         }
 
         return $this->response()->success('回复成功')->refresh();

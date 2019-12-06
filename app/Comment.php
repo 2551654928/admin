@@ -13,7 +13,7 @@ class Comment extends Model
 
     protected $appends = ['html'];
 
-    protected $fillable = ['parent_id', 'foreign_id', 'name', 'email', 'link', 'content', 'type', 'status'];
+    protected $fillable = ['parent_id', 'foreign_id', 'name', 'email', 'link', 'content', 'type', 'status', 'is_admin'];
 
     const TYPES = ['article' => '文章', 'blog' => '博客'];
 
@@ -95,6 +95,7 @@ class Comment extends Model
      * @param string $email     收件人邮箱
      * @param string $subject   邮件主题
      * @param string $content   邮件内容
+     * @param string $url       URL
      */
     public static function sendReplyEmail(
         Comment $row,
@@ -102,13 +103,15 @@ class Comment extends Model
         string $title,
         string $email,
         string $subject,
-        string $content
+        string $content,
+        string $url = ''
     ) {
         Mail::send('emails.reply', [
             'title' => $title,
             'row' => $row,
             'comment' => $comment,
-            'content' => str_replace(PHP_EOL, '<br />', $content)
+            'content' => str_replace(PHP_EOL, '<br />', $content),
+            'url' => $url ?: url()->previous()
         ], function ($mail) use ($email, $subject) {
             $mail->to($email);
             $mail->subject($subject);

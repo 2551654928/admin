@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Blog;
 use App\Comment;
 use App\Config;
 use Illuminate\Http\Request;
@@ -10,6 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
+    /**
+     * 评论文章 单页 公告
+     *
+     * @param Request $request
+     * @return array
+     */
     public function article(Request $request)
     {
         $replyId = $request->input('reply_id');
@@ -20,12 +27,7 @@ class CommentController extends Controller
             if (!$article = Article::find($data['foreign_id'])) {
                 throw new \Exception('不存在的资源');
             }
-
-            $isReview = Config::where('key', 'review_comment')->first();
-            $data['is_admin'] = 0;
-            $data['status'] = $isReview->value == 1 ? 2 : 1;
-            $data['ip'] = $request->getClientIp();
-            $data['type'] = $article->type;
+            $data['type'] = 'article';
             $content = $data['content'];
             if ($created = Comment::create($data)) {
                 if ($parentId == 0 && $replyId == 0) {
@@ -65,6 +67,61 @@ class CommentController extends Controller
     }
 
     /**
+     * 评论博客
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function blog(Request $request)
+    {
+        $replyId = $request->input('reply_id');
+        $parentId = $request->input('parent_id');
+        try {
+            $data = $this->validated();
+
+            if (!$blog = Blog::find($data['foreign_id'])) {
+                throw new \Exception('不存在的资源');
+            }
+
+            $data['type'] = 'blog';
+            $content = $data['content'];
+            if ($created = Comment::create($data)) {
+                if ($parentId == 0 && $replyId == 0) {
+                    // 给被回复对象发邮件
+                    $subject = "【十年之约】评论提醒";
+                    Comment::sendCommentEmail(
+                        $created,
+                        $blog->email,
+                        $subject,
+                        $blog->name,
+                        $blog->link,
+                        '博客',
+                        $content
+                    );
+                } else {
+                    // 被回复对象原评论
+                    $comment = null;
+                    if ($replyId != 0 && !$comment = Comment::find($replyId)) {
+                        throw new \Exception('回复对象不存在');
+                    }
+                    // 给被回复对象发邮件
+                    Comment::sendReplyEmail(
+                        $comment,
+                        $created,
+                        $comment->blog->name,
+                        $comment->email,
+                        "【十年之约】你的评论有了新的回复",
+                        $content
+                    );
+                }
+            }
+        } catch (\Exception $e) {
+            return ['code' => 0, 'line' => $e->getLine(), 'message' => $e->getMessage()];
+        }
+        return ['code' => 1, 'message' => '评论成功, 审核通过后显示'];
+    }
+
+    /**
      * 验证数据
      *
      * @return array
@@ -86,7 +143,13 @@ class CommentController extends Controller
         if ($validator->fails()) {
             throw new \Exception($validator->errors()->first());
         }
+        $data = $validator->validated();
 
-        return $validator->validated();
+        $isReview = Config::where('key', 'review_comment')->first();
+        $data['is_admin'] = \Encore\Admin\Facades\Admin::user() ? 1 : 0;
+        $data['status'] = $isReview->value == 1 ? 2 : 1;
+        $data['ip'] = \request()->getClientIp();
+
+        return $data;
     }
 }
