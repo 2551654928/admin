@@ -13,6 +13,7 @@ Route::group([
     $router->get('/', 'HomeController@index')->name('admin.home');
     $router->get('settings', 'SettingController@index');
     $router->resource('blogs', BlogController::class);
+    $router->resource('notices', NoticeController::class);
     $router->resource('articles', ArticleController::class);
     $router->resource('pages', PageController::class);
     $router->resource('datelines', DatelineController::class);

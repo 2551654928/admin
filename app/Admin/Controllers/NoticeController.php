@@ -10,14 +10,14 @@ use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Support\Str;
 
-class ArticleController extends AdminController
+class NoticeController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = '文章管理';
+    protected $title = '公告管理';
 
     /**
      * Make a grid builder.
@@ -27,7 +27,9 @@ class ArticleController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Article);
-        $grid->model()->orderBy('id', 'desc')->where('type', 'article');
+        $grid->model()->orderBy('id', 'desc')->where('type', 'notice');
+
+        $grid->quickSearch();
 
         $grid->filter(function($filter) {
             $filter->disableIdFilter();
@@ -108,7 +110,7 @@ class ArticleController extends AdminController
      */
     protected function form()
     {
-        $article = Article::find(request()->route('article'));
+        $article = Article::find(request()->route('notice'));
 
         $form = new Form(new Article);
 
@@ -128,7 +130,7 @@ class ArticleController extends AdminController
                 'off' => ['value' => 0, 'text' => '否', 'color' => 'danger'],
             ])
             ->default(1);
-        $form->hidden('type')->value('article');
+        $form->hidden('type')->value('notice');
         /*$form->radio('type', __('类型'))
             ->options(Article::TYPES)
             ->default('notice');*/

@@ -32,7 +32,7 @@ class CommentController extends AdminController
         $grid = new Grid(new Comment);
         $grid->model()->orderBy('id', 'desc');
 
-        $grid->quickSearch();
+        $grid->quickSearch('name', 'email', 'link', 'content');
 
         $grid->filter(function($filter) {
             $filter->disableIdFilter();
