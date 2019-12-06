@@ -22,8 +22,8 @@
 <main>
     <h2>
         <span>&gt; </span>
-        您({{ $article->name }})发布的{{ $types[$article->type] }}
-        <a href="{{ url()->previous() }}" target="_blank" rel="noopener"><{{ $article->title }}></a>
+        您({{ $name }})发布的{{ $type }}
+        <a href="{{ url()->previous() }}" target="_blank" rel="noopener"><{{ $title }}></a>
         有了新的评论
     </h2>
     <div class="detail-container">
@@ -33,9 +33,10 @@
         <p><strong>{{ ($comment->is_admin ? '[管理员] ' : '') . $comment->name }}</strong> 评论说：</p>
         <p class="detail-content">{!! $comment->content !!}</p>
         <p class="info">
-            如需回复, 请登录管理员后台进行操作。<br>
+            您可以点击<a href="{{ url()->previous().'#comment-form' }}" target="_blank" rel="noopener">
+                查看回复的完整內容</a>。<br>
             本邮件为自动发送，请勿直接回复，如有疑问，请联系
-            <a href="mailto:admin@foreverblog.cn" target="_blank" rel="noopener">admin@foreverblog.cn</a>，
+            <a href="mailto:admin@foreverblog.cn" target="_blank" rel="noopener">admin@foreverblog.cn</a>
         </p>
     </div>
 </main>

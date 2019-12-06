@@ -28,6 +28,6 @@
 
         </section>
 
-        @component('comment', ['article' => $article]) @endcomponent
+        @component('comment', ['type' => 'article', 'data' => $article]) @endcomponent
     </article>
 @endsection

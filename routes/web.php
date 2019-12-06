@@ -29,6 +29,7 @@ Route::get('blog/{id}.html', 'BlogController@blog');
 Route::any('join.html', 'BlogController@join');
 
 // 评论
-Route::post('comment', 'ArticleController@comment');
+Route::post('comment/article', 'CommentController@article');
+Route::post('comment/blog', 'CommentController@blog');
 
 Route::get('{key?}.html', 'PageController@detail');

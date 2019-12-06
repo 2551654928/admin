@@ -26,8 +26,22 @@ class Blog extends Model
         return $this->hasMany(Dateline::class, 'blog_id', 'id')->orderByDesc('created_at');
     }
 
-    public function comments()
+    public function comments($page = 10)
     {
-        return $this->hasMany(Comment::class, 'foreign_id', 'id');
+        return $this->hasMany(Comment::class, 'foreign_id', 'id')
+            ->with('replies')
+            ->orderBy('created_at', 'desc')
+            ->where('parent_id', 0)
+            ->where('type', 'blog')
+            ->where('status', 1)
+            ->paginate($page);
+    }
+
+    public function getCommentCount()
+    {
+        return Comment::where('foreign_id', $this->id)
+            ->where('type', 'blog')
+            ->where('status', 1)
+            ->count();
     }
 }

@@ -3,9 +3,9 @@
 
     <!-- Content -->
     <div class="content" id="comments-box">
-        <h4>共有 {{ $article->getCommentCount() }} 条评论</h4>
+        <h4>共有 {{ $data->getCommentCount() }} 条评论</h4>
         <ul id="comments">
-            @foreach($article->comments() as $comment)
+            @foreach($data->comments() as $comment)
                 <li class="item">
                     <div class="comment-item">
                         <div class="meta">
@@ -51,8 +51,8 @@
                 </li>
             @endforeach
         </ul>
-        {!! $article->comments()->fragment('comments-container')->links() !!}
-        @if($article->is_comment)
+        {!! $data->comments()->fragment('comments-container')->links() !!}
+        @if($data->is_comment)
             <p>添加新评论<a href="javascript:void(0)" id="cancel-reply" data-at="">取消回复</a></p>
             <div style="clear: both"></div>
             <form id="comment-form" method="post">
@@ -78,7 +78,7 @@
                 </div>
                 <input type="hidden" name="reply_id" value="0">
                 <input type="hidden" name="parent_id" value="0">
-                <input type="hidden" name="foreign_id" value="{{ $article->id }}">
+                <input type="hidden" name="foreign_id" value="{{ $data->id }}">
             </form>
         @else
             <p class="close-comment"><i class="fa fa-lock"></i> 管理员已禁止当前页面的评论！</p>
@@ -98,14 +98,14 @@
             $('#comment-form').submit(function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "{{ url('/comment') }}",
+                    url: "{{ url('/comment/'.$type) }}",
                     type: "post",
                     data: $(this).serialize(),
                     dataType: "json",
                     success: function (response) {
                         alert(response.message);
                         if (response.code) {
-                            window.location.href = '';
+                            // window.location.href = '';
                         }
                     },
                     error: function (error) {
