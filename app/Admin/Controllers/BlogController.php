@@ -10,6 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Encore\Admin\Widgets\Table;
 use App\Admin\Actions\Blog\Record;
+use Illuminate\Support\Str;
 
 class BlogController extends AdminController
 {
@@ -56,7 +57,9 @@ class BlogController extends AdminController
         $grid->column('email', __('邮箱'));
         $grid->column('link', __('链接地址'))->link()
             ->copyable();
-        $grid->column('message', __('寄语'));
+        $grid->column('message', __('寄语'))->display(function ($message) {
+            return Str::limit($message, 60);
+        });
         $grid->column('status', __('状态'))
             ->filter(Blog::STATUS)
             ->editable('select', Blog::STATUS);

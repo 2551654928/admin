@@ -12,7 +12,7 @@ class Blog extends Model
 
     protected $appends = ['avatar'];
 
-    protected $fillable = ['name', 'email', 'link', 'message', 'status'];
+    protected $fillable = ['name', 'email', 'link', 'message', 'status', 'history', 'views', 'adopted_at', 'updated_at', 'created_at'];
 
     const STATUS = ['审核中', '审核通过', '未通过', '异常'];
 

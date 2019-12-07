@@ -18,6 +18,7 @@ class BlogController extends Controller
     public function blog(Request $request)
     {
         $blog = Blog::findOrFail($request->route('id'));
+        $blog->increment('views');
         return view('layouts.blogs.detail', compact('blog'));
     }
 
