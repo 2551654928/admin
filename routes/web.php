@@ -67,7 +67,7 @@ Route::get('/import/blogs', function () {
                 ->where('type', 'str')
                 ->value('str_value');
 
-            $b = \App\Blog::create([
+            /*$b = \App\Blog::create([
                 'name' => $link->name,
                 'email' => $email,
                 'link' => $link->url,
@@ -78,8 +78,9 @@ Route::get('/import/blogs', function () {
                 'created_at' => date('Y-m-d H:i:s', $content->created)
             ]);
 
+            */
             if ($content) {
-                // 处理大事记数据
+                /*// 处理大事记数据
                 $datelines = explode('> ', $content->text);
                 unset($datelines[0]);
                 $datelines = array_values($datelines);
@@ -101,10 +102,20 @@ Route::get('/import/blogs', function () {
                             'content' => $value
                         ]);
                     }
+                }*/
+                // 处理评论
+                $comments = DB::table('typecho_comments')->where('cid', $content->cid)->get();
+                if ($comments) {
+                    $status = ['approved' => 1];
+
                 }
             }
+
+
         }
     }
+
+    // TODO 处理文章评论
 });
 
 Route::get('/', 'IndexController@index');
