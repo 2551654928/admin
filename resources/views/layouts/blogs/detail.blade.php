@@ -27,13 +27,17 @@
                         </a>
                     </div>
                     <div class="cright">
-                        <h2>大事记</h2>
-                        @foreach($blog->datelines as $dateline)
-                        <div class="item">
-                            <blockquote><p>{{ $dateline->join_date }}</p></blockquote>
-                            <p>{!! str_replace(["\r\n", PHP_EOL], ['<br/>', '<br/>'], $dateline->content) !!}</p>
-                        </div>
-                        @endforeach
+                        @if(count($blog->datelines))
+                            <h2>大事记</h2>
+                            @foreach($blog->datelines as $dateline)
+                            <div class="item">
+                                <blockquote><p>{{ $dateline->join_date }}</p></blockquote>
+                                <p>{!! str_replace(["\r\n", PHP_EOL], ['<br/>', '<br/>'], $dateline->content) !!}</p>
+                            </div>
+                            @endforeach
+                        @else
+                            <div style="text-align: center">暂无大事记</div>
+                        @endif
                     </div>
 
                 </section>
