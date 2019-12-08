@@ -47,6 +47,7 @@ class NoticeController extends AdminController
         $grid->column('name', __('发布人'));
         $grid->column('email', __('发布人邮箱'));
         $grid->column('title', __('标题'));
+        $grid->column('read_num', __('阅读量'));
         $grid->column('content', __('内容'))->display(function ($content) {
             return Str::limit(strip_tags($content), 70);
         });
@@ -89,6 +90,7 @@ class NoticeController extends AdminController
         $show->field('name', __('发布人'));
         $show->field('email', __('发布人邮箱'));
         $show->field('title', __('标题'));
+        $show->field('read_num', __('阅读量'));
         $show->field('content', __('内容'));
         $show->field('is_comment', __('是否允许评论'))
             ->using([0 => '否', 1 => '是'])
@@ -130,6 +132,7 @@ class NoticeController extends AdminController
                 'off' => ['value' => 0, 'text' => '否', 'color' => 'danger'],
             ])
             ->default(1);
+        $form->text('read_num', __('阅读量'))->rules('numeric');
         $form->hidden('type')->value('notice');
         /*$form->radio('type', __('类型'))
             ->options(Article::TYPES)

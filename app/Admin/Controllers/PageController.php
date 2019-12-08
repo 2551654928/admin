@@ -40,6 +40,7 @@ class PageController extends AdminController
         $grid->column('id', __('ID'));
         $grid->column('key', __('标识'))->label('danger');
         $grid->column('title', __('页面标题'));
+        $grid->column('read_num', __('阅读量'));
         $grid->column('content', __('内容'))->display(function ($content) {
             return Str::limit(strip_tags($content), 100);
         });
@@ -80,6 +81,7 @@ class PageController extends AdminController
 
         $show->field('id', __('ID'));
         $show->field('title', __('页面标题'));
+        $show->field('read_num', __('阅读量'));
         $show->field('content', __('内容'));
         $show->field('is_comment', __('是否允许评论'))
             ->using([0 => '否', 1 => '是'])
@@ -120,6 +122,7 @@ class PageController extends AdminController
                 'on'  => ['value' => 1, 'text' => '是', 'color' => 'success'],
                 'off' => ['value' => 0, 'text' => '否', 'color' => 'danger'],
             ]);
+        $form->text('read_num', __('阅读量'))->rules('numeric');
         $form->text('key', __('单页标识'))->readonly();
 
         return $form;

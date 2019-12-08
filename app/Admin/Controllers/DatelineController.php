@@ -76,7 +76,7 @@ class DatelineController extends AdminController
 
         // $form->number('blog_id', __('Blog id'));
         $form->datetime('date', __('日期'))->default(date('Y-m-d H:i:s'));
-        $form->textarea('content', __('内容'));
+        $form->summernote('content', __('内容'));
 
         return $form;
     }
