@@ -31,7 +31,7 @@
                         @foreach($blog->datelines as $dateline)
                         <div class="item">
                             <blockquote><p>{{ $dateline->join_date }}</p></blockquote>
-                            <p>{!! $dateline->content !!}</p>
+                            <p>{!! str_replace(["\r\n", PHP_EOL], ['<br/>', '<br/>'], $dateline->content) !!}</p>
                         </div>
                         @endforeach
                     </div>
@@ -46,7 +46,10 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
         window.onload = function () {
-            $('.cright .item > p').html(marked($('.cright .item > p').html()))
+            $('.cright .item').each(function () {
+                $content = $(this).find('> p');
+                $content.html(marked($content.html()))
+            })
         }
     </script>
 @endsection
