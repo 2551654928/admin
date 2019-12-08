@@ -301,6 +301,7 @@ ul.pagination li.page-item .page-link {
 .cright p {
   padding-left: 15px;
   margin-bottom: 15px;
+  word-wrap: break-word;
 }
 .cright blockquote {
   background-color: #f3f6fa;

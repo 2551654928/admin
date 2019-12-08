@@ -60,11 +60,18 @@ Route::get('/import/blogs', function () {
                 $memorabilia = $blogInfo->memorabilia;
             }
 
+            // 寄语
+            $message = DB::table('typecho_fields')
+                ->where('cid', $content->cid)
+                ->where('name', 'xwords')
+                ->where('type', 'str')
+                ->value('str_value');
+
             $b = \App\Blog::create([
                 'name' => $link->name,
                 'email' => $email,
                 'link' => $link->url,
-                'message' => $link->description ?: '',
+                'message' => $message ?: ($link->description ?: ''),
                 'history' => $memorabilia ?: '',
                 'status' => 1,
                 'adopted_at' => date('Y-m-d H:i:s', strtotime($link->user)),

@@ -30,8 +30,8 @@
                         <h2>大事记</h2>
                         @foreach($blog->datelines as $dateline)
                         <div class="item">
-                            <blockquote><p>{{ $dateline->date }}</p></blockquote>
-                            <p>{{ $dateline->content }}</p>
+                            <blockquote><p>{{ $dateline->join_date }}</p></blockquote>
+                            <p>{!! $dateline->content !!}</p>
                         </div>
                         @endforeach
                     </div>
@@ -42,4 +42,11 @@
 
         @component('comment', ['type' => 'blog', 'data' => $blog]) @endcomponent
     </article>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        window.onload = function () {
+            $('.cright .item > p').html(marked($('.cright .item > p').html()))
+        }
+    </script>
 @endsection
