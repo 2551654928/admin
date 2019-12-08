@@ -131,6 +131,7 @@ class CommentController extends Controller
     {
         $validator = Validator::make(\request()->all(), [
             'parent_id' => 'required|numeric',
+            'reply_id' => 'numeric',
             'foreign_id' => 'required|numeric',
             'name' => 'required|min:2|max:20',
             'email' => 'required|email',

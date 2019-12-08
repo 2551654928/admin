@@ -13,7 +13,7 @@ class Comment extends Model
 
     protected $appends = ['html'];
 
-    protected $fillable = ['parent_id', 'foreign_id', 'name', 'email', 'link', 'content', 'type', 'status', 'is_admin'];
+    protected $fillable = ['parent_id', 'foreign_id', 'reply_id', 'name', 'email', 'link', 'content', 'type', 'status', 'is_admin'];
 
     const TYPES = ['article' => '文章', 'blog' => '博客'];
 

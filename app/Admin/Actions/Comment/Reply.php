@@ -45,6 +45,7 @@ class Reply extends RowAction
 
         $comment = new Comment;
         $comment->parent_id = $this->row->parent_id ? $this->row->parent_id : $this->row->id;
+        $comment->reply_id = $this->row->id;
         $comment->foreign_id = $this->row->foreign_id;
         $comment->type = $this->row->type;
         $comment->email = Admin::user()->email;

@@ -104,16 +104,15 @@ Route::get('/import/blogs', function () {
                     }
                 }*/
                 // 处理评论
-                $comments = DB::table('typecho_comments')->where('cid', $content->cid)->get();
-                if ($comments) {
+                $comments = DB::table('typecho_comments')->where('cid', $content->cid)->where('parent', '<>', 0)->get();
+                if (count($comments)) {
                     $status = ['approved' => 1];
-
+                    dd($comments);
                 }
             }
-
-
         }
     }
+    dd(1);
 
     // TODO 处理文章评论
 });
