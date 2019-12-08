@@ -34,7 +34,7 @@ class CommentController extends Controller
                     // 给被回复对象发邮件
                     $types = Article::TYPES;
                     $subject = "【十年之约】{$types[$article->type]} <{$article->title}> 有了新的评论";
-                    Comment::sendCommentEmail(
+                    /*Comment::sendCommentEmail(
                         $created,
                         $article->email,
                         $subject,
@@ -42,7 +42,7 @@ class CommentController extends Controller
                         $article->title,
                         $types[$article->type],
                         $content
-                    );
+                    );*/
                 } else {
                     // 被回复对象原评论
                     $comment = null;
@@ -129,7 +129,11 @@ class CommentController extends Controller
      */
     private function validated()
     {
-        $validator = Validator::make(\request()->all(), [
+        $all = \request()->all();
+        if (empty($all['link'])) {
+            unset($all['link']);
+        }
+        $validator = Validator::make($all, [
             'parent_id' => 'required|numeric',
             'reply_id' => 'numeric',
             'foreign_id' => 'required|numeric',

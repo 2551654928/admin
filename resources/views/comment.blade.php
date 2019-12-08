@@ -23,7 +23,7 @@
                         </div>
                         <a href="javascript:void(0)" class="reply" data-parent-id="{{ $comment->id }}" data-reply-id="{{ $comment->id }}" data-at="{{ "@{$comment->name} " }}">回复</a>
                     </div>
-                    @if($comment->replies)
+                    @if(count($comment->replies))
                         <ul class="children">
                             @foreach($comment->replies as $reply)
                                 <li class="item">
