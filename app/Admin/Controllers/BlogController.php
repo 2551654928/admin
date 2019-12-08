@@ -60,7 +60,7 @@ class BlogController extends AdminController
         $grid->column('message', __('寄语'))->display(function ($message) {
             return Str::limit($message, 60);
         });
-        $grid->column('views', __('阅读量'));
+        $grid->column('views', __('阅读量'))->sortable();
         $grid->column('status', __('状态'))
             ->filter(Blog::STATUS)
             ->editable('select', Blog::STATUS);

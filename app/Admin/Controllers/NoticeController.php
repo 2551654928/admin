@@ -47,7 +47,7 @@ class NoticeController extends AdminController
         $grid->column('name', __('发布人'));
         $grid->column('email', __('发布人邮箱'));
         $grid->column('title', __('标题'));
-        $grid->column('read_num', __('阅读量'));
+        $grid->column('read_num', __('阅读量'))->sortable();
         $grid->column('content', __('内容'))->display(function ($content) {
             return Str::limit(strip_tags($content), 70);
         });

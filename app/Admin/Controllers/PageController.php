@@ -40,7 +40,7 @@ class PageController extends AdminController
         $grid->column('id', __('ID'));
         $grid->column('key', __('标识'))->label('danger');
         $grid->column('title', __('页面标题'));
-        $grid->column('read_num', __('阅读量'));
+        $grid->column('read_num', __('阅读量'))->sortable();
         $grid->column('content', __('内容'))->display(function ($content) {
             return Str::limit(strip_tags($content), 100);
         });
