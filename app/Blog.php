@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Observers\BlogObserver;
 use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
