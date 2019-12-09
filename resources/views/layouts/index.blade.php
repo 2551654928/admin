@@ -101,7 +101,6 @@
                         <header>
                             <h3>{{ $blog->name }}</h3>
                         </header>
-                        <p class="content">{{ $blog->message }}</p>
                     </section>
 
                 </div>
