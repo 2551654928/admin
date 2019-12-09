@@ -209,6 +209,7 @@ Route::get('/import/excels', function () {
                 $blog->email = $excel->f6;
                 $blog->message = $excel->f7;
                 $blog->history = $excel->f8;
+                $blog->created_at = $excel->f2;
                 $blog->save();
             }
         }
