@@ -86,7 +86,7 @@ Route::get('/import/blogs', function () {
                     'link' => $link->url,
                     'message' => $message ?: ($link->description ?: ''),
                     'history' => $memorabilia ?: '',
-                    'status' => 1,
+                    'status' => $link->sort == 'live' ? 1 : 3,
                     'adopted_at' => date('Y-m-d H:i:s', strtotime($link->user)),
                     'created_at' => date('Y-m-d H:i:s', $content->created)
                 ]);
@@ -198,6 +198,21 @@ Route::get('/import/blogs', function () {
         }
     });
 
+});
+
+Route::get('/import/excels', function () {
+    DB::transaction(function () {
+        $excels = DB::table('excel')->get();
+        foreach ($excels as $excel) {
+            $blog = \App\Blog::where('name', $excel->f3)->first();
+            if ($blog) {
+                $blog->email = $excel->f6;
+                $blog->message = $excel->f7;
+                $blog->history = $excel->f8;
+                $blog->save();
+            }
+        }
+    });
 });
 
 Route::get('/', 'IndexController@index');
