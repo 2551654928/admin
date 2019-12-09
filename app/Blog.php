@@ -20,14 +20,15 @@ class Blog extends Model
     {
         parent::boot();
 
-        static::updating(function (Blog $blog) {
+        // TODO 数据导入完成后打开此项
+        /*static::updating(function (Blog $blog) {
             if ($blog->status == 1) {
                 // 更新审核时间
                 $blog->adopted_at = date('Y-m-d H:i:s');
             } else {
                 $blog->adopted_at = null;
             }
-        });
+        });*/
     }
 
     public function getAvatarAttribute($value)
