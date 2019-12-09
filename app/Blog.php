@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Observers\BlogObserver;
 use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
@@ -15,6 +16,20 @@ class Blog extends Model
     protected $fillable = ['name', 'email', 'link', 'message', 'status', 'history', 'views', 'adopted_at', 'updated_at', 'created_at'];
 
     const STATUS = ['审核中', '审核通过', '未通过', '异常'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function (Blog $blog) {
+            if ($blog->status == 1) {
+                // 更新审核时间
+                $blog->adopted_at = date('Y-m-d H:i:s');
+            } else {
+                $blog->adopted_at = null;
+            }
+        });
+    }
 
     public function getAvatarAttribute($value)
     {
