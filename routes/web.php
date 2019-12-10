@@ -118,7 +118,7 @@ Route::get('/import/blogs', function () {
                     }
                     // 处理一级评论
                     $commentsA = DB::table('typecho_comments')->where('cid', $content->cid)->where('parent', 0)->get();
-                    $status = ['approved' => 1];
+                    $status = ['approved' => 1, 'waiting' => 2];
                     foreach ($commentsA as $item) {
                         $c = \App\Comment::create([
                             'parent_id' => 0,
