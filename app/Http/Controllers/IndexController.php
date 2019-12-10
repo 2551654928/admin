@@ -11,7 +11,7 @@ class IndexController extends Controller
     public function index()
     {
         $notices = Article::where('type', 'notice')->limit(4)->orderByDesc('created_at')->get();
-        $blogs = Blog::where('status', 1)->limit(3)->orderBy('adopted_at', 'asc')->get();
+        $blogs = Blog::where('status', 1)->limit(3)->orderByDesc('adopted_at')->get();
         return view('layouts.index', compact('notices', 'blogs'));
     }
 }

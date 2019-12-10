@@ -11,7 +11,7 @@ class BlogController extends Controller
 {
     public function blogs()
     {
-        $blogs = Blog::all()->whereIn('status', [1, 3])->groupBy('status');
+        $blogs = Blog::whereIn('status', [1, 3])->groupBy('status')->orderBy('created_at', 'asc')->get();
         return view('layouts.blogs.list', compact('blogs'));
     }
 
