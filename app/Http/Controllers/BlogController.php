@@ -12,7 +12,7 @@ class BlogController extends Controller
     public function blogs()
     {
         $blogs = Blog::whereIn('status', [1, 3])->select()
-            ->orderBy('adopted_at', 'asc')
+            ->orderBy('created_at', 'asc')
             ->get()
             ->groupBy('status');
         return view('layouts.blogs.list', compact('blogs'));
