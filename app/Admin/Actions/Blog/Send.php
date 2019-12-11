@@ -7,6 +7,7 @@ use Encore\Admin\Actions\RowAction;
 use Encore\Admin\Admin;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
 class Send extends RowAction
@@ -16,6 +17,10 @@ class Send extends RowAction
     public function handle(Model $model, Request $request)
     {
         $email = $this->row->email;
+        $sendKey = "send_mail_{$email}";
+        if (Cache::has($sendKey)) {
+            throw new \Exception('邮件正在发送中...');
+        }
         $status = $request->input('status');
         $title = $request->input('title');
         $subtitle = $request->input('subtitle');
@@ -28,23 +33,30 @@ class Send extends RowAction
             $this->row->name,
         ], $content);
 
-        Mail::send('emails.notify', [
-            'email' => $email,
-            'title' => $title,
-            'content' => $content,
-            'subtitle' => $subtitle,
-        ], function ($mail) use ($email, $title, $status) {
-            $mail->to($email);
-            $mail->subject($title);
-            if ($status == 1) {
-                // 审核通过增加附件
-                $mail->attach(storage_path('十年之约公约.pdf'));
-            }
-        });
+        Cache::put($sendKey, $email, 180);
 
-        $this->row->status = $status;
-        $this->row->save();
+        try {
+            Mail::send('emails.notify', [
+                'email' => $email,
+                'title' => $title,
+                'content' => $content,
+                'subtitle' => $subtitle,
+            ], function ($mail) use ($email, $title, $status) {
+                $mail->to($email);
+                $mail->subject($title);
+                if ($status == 1) {
+                    // 审核通过增加附件
+                    $mail->attach(storage_path('十年之约公约.pdf'));
+                }
+            });
 
+            $this->row->status = $status;
+            $this->row->save();
+        } catch (\Exception $e) {
+            Cache::forget($sendKey);
+            throw new \Exception($e->getMessage());
+        }
+        Cache::forget($sendKey);
         return $this->response()->success('发送成功')->refresh();
     }
 
