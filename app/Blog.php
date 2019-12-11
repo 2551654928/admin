@@ -16,7 +16,7 @@ class Blog extends Model
 
     const STATUS = ['审核中', '审核通过', '未通过', '异常'];
 
-    public static function boot()
+    /*public static function boot()
     {
         parent::boot();
 
@@ -28,7 +28,7 @@ class Blog extends Model
                 $blog->adopted_at = null;
             }
         });
-    }
+    }*/
 
     public function getAvatarAttribute($value)
     {

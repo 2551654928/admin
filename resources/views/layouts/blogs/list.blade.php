@@ -22,7 +22,7 @@
                             <img src="{{ gravatar($item->email) }}" alt="">
                             <div class="meta">
                                 <h4 class="name">{{ $item->name }}</h4>
-                                <span class="date"><span class="str">签约时间: </span>{{ $item->adopted_at->format('Y-m-d') }}</span>
+                                <span class="date"><span class="str">签约时间: </span>{{ $item->created_at->format('Y-m-d') }}</span>
                             </div>
                         </a>
                     </li>
@@ -42,7 +42,7 @@
                                 <img src="{{ gravatar($blog->email) }}" alt="">
                                 <div class="meta">
                                     <h4 class="name">{{ $blog->name }}</h4>
-                                    <span class="date"><span class="str">签约时间: </span>{{ $blog->adopted_at ? $blog->adopted_at->format('Y-m-d') : $blog->created_at->format('Y-m-d') }}</span>
+                                    <span class="date"><span class="str">签约时间: </span>{{ $blog->created_at->format('Y-m-d') }}</span>
                                 </div>
                             </a>
                         </li>
