@@ -48,15 +48,18 @@ class CommentController extends AdminController
 
         $grid->column('id', __('ID'));
         $grid->column('foreign_id', __('来源'))->display(function ($foreignId, $column) {
+            $str = '-';
             if ('article' === $this->type) {
                 $article = Article::find($foreignId);
-                return  ($article ? $article->title : '-');
+                $str = ($article ? $article->title : '-');
             }
 
             if ('blog' === $this->type) {
                 $blog = Blog::find($foreignId);
-                return ($blog ? $blog->name : '-');
+                $str = ($blog ? $blog->name : '-');
             }
+
+            return Str::limit(strip_tags($str), 4);
         });
         $grid->column('type', __('类型'))->using(Comment::TYPES)
             ->filter(Comment::TYPES)
