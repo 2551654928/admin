@@ -88,6 +88,15 @@
 <script src="/assets/js/util.js"></script>
 <script src="/assets/js/main.js"></script>
 @yield('js')
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?0c7836ac8678d921d1d4ad74e6affa81";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 
 </body>
 </html>
