@@ -37,7 +37,7 @@ class Blog extends Model
 
     public function datelines()
     {
-        return $this->hasMany(Dateline::class, 'blog_id', 'id')->orderByDesc('created_at');
+        return $this->hasMany(Dateline::class, 'blog_id', 'id')->orderBy('created_at', 'asc');
     }
 
     public function comments($page = 10)
