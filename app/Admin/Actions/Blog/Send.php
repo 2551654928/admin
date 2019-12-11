@@ -33,10 +33,13 @@ class Send extends RowAction
             'title' => $title,
             'content' => $content,
             'subtitle' => $subtitle,
-        ], function ($mail) use ($email, $title) {
+        ], function ($mail) use ($email, $title, $status) {
             $mail->to($email);
             $mail->subject($title);
-            $mail->attach(storage_path('十年之约公约.pdf'));
+            if ($status == 1) {
+                // 审核通过增加附件
+                $mail->attach(storage_path('十年之约公约.pdf'));
+            }
         });
 
         $this->row->status = $status;
