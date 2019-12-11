@@ -100,7 +100,7 @@ class BlogController extends AdminController
 
         $form->display('id', 'ID');
         $form->text('name', __('博客名称'))
-            ->rules('required|min:3');
+            ->rules('required|min:2');
         $form->email('email', __('邮箱'))
             ->rules('required|email')
             ->creationRules(['required', "unique:blog"])
