@@ -59,7 +59,7 @@ class CommentController extends AdminController
                 $str = ($blog ? $blog->name : '-');
             }
 
-            return Str::limit(strip_tags($str), 4);
+            return Str::limit(strip_tags($str), 6);
         });
         $grid->column('type', __('类型'))->using(Comment::TYPES)
             ->filter(Comment::TYPES)
