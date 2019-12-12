@@ -65,8 +65,8 @@ class TaskController extends Controller
                         $currentAbnormalNum = $blog->abnormal_num + 1;
                         // 是否已超出当天最大异常次数(加上当前异常)
                         if ($currentAbnormalNum >= $options['max_abnormal_num']) {
-                            $data = ['status' => 3, 'abnormal_num' => $currentAbnormalNum, 'abnormal_at' => time()];
-                            // 是否自动写入异常大事记
+                            $data = ['status' => 4, 'abnormal_num' => $currentAbnormalNum, 'abnormal_at' => time()];
+                            /*// 是否自动写入异常大事记
                             if ($options['auto_writing_dateline']) {
                                 $date = date('Y-m-d H:i:s');
                                 $datelines[] = [
@@ -76,7 +76,7 @@ class TaskController extends Controller
                                     'updated_at' => $date,
                                     'created_at' => $date
                                 ];
-                            }
+                            }*/
                         } else {
                             // 增加异常数量 and 更新异常时间
                             $data = ['abnormal_num' => $currentAbnormalNum, 'abnormal_at' => time()];
@@ -91,11 +91,11 @@ class TaskController extends Controller
 
         $results = Promise\unwrap($promises);
 
-        if (count($datelines)) {
+        /*if (count($datelines)) {
             if (!DB::table('dateline')->insert($datelines)) {
                 DB::rollBack();
             }
-        }
+        }*/
 
         DB::commit();
 

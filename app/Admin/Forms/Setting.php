@@ -57,10 +57,10 @@ class Setting extends Form
         $this->number('auto_writing_period', __('自动检测周期'))
             ->help('以小时为单位');
         $this->number('max_abnormal_num', __('最大异常次数'))
-            ->help('博客当天最大异常次数, 超出后将列入异常名单');
-        $this->switch('auto_writing_dateline', __('异常自动写入大事记'))
+            ->help('博客当天最大异常次数, 超出后将列入疑似异常名单');
+        /*$this->switch('auto_writing_dateline', __('异常自动写入大事记'))
             ->states($states)
-            ->help('自动检测到博客当天异常数量超出后是否自动写入大事记');
+            ->help('自动检测到博客当天异常数量超出后是否自动写入大事记');*/
     }
 
     /**

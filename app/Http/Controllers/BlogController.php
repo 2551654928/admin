@@ -11,7 +11,7 @@ class BlogController extends Controller
 {
     public function blogs()
     {
-        $blogs = Blog::whereIn('status', [1, 3])->select()
+        $blogs = Blog::whereIn('status', [1, 4])->select()
             ->orderBy('created_at', 'asc')
             ->get()
             ->groupBy('status');
@@ -36,9 +36,9 @@ class BlogController extends Controller
             }
 
             $email = $request->input('email');
-            if (Blog::where('email', $email)->where('status', '<>', 2)->count()) {
+            /*if (Blog::where('email', $email)->where('status', '<>', 2)->count()) {
                 return ['code' => 0, 'message' => '检测到系统已存在该邮箱, 同一个邮箱只允许申请一次!'];
-            }
+            }*/
             $validator = Validator::make($request->all(), [
                 'name' => 'required|min:2|max:20',
                 'email' => 'required|email',

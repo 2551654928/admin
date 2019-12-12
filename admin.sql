@@ -189,7 +189,7 @@ CREATE TABLE `blog` (
   `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '链接',
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '邮箱',
   `message` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '寄语',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态值:0=审核中,1=正常,2=未通过,3=异常',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态值:0=审核中,1=正常,2=未通过,3=疑似异常,4=异常',
   `is_comment` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否允许评论,1=允许,0=不允许',
   `history` text COLLATE utf8mb4_unicode_ci COMMENT '博客历史事件',
   `views` int(11) DEFAULT '0' COMMENT '阅读量',

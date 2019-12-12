@@ -35,8 +35,8 @@
             </header>
 
             <ul>
-                @if(isset($blogs[3]))
-                    @foreach($blogs[3] as $blog)
+                @if(isset($blogs[4]))
+                    @foreach($blogs[4] as $blog)
                         <li>
                             <a href="{{ url("/blog/{$blog->id}.html") }}" target="_blank" rel="noopener" class="item gray" title="{{ $blog->message }}">
                                 <img src="{{ gravatar($blog->email) }}" alt="">
