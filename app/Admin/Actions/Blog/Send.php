@@ -21,6 +21,7 @@ class Send extends RowAction
         if (Cache::has($sendKey)) {
             throw new \Exception('邮件正在发送中...');
         }
+        $type = $request->input('type');
         $status = $request->input('status');
         $title = $request->input('title');
         $subtitle = $request->input('subtitle');
@@ -50,6 +51,10 @@ class Send extends RowAction
             });
 
             $this->row->status = $status;
+            // 如果是审核邮件，更改是否已发送邮件状态
+            if ($type > 0) {
+                $this->row->is_notify = 1;
+            }
             $this->row->save();
         } catch (\Exception $e) {
             Cache::forget($sendKey);

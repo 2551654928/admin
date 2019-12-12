@@ -64,7 +64,7 @@ class BlogController extends AdminController
         $grid->column('status', __('状态'))
             ->filter(Blog::STATUS)
             ->editable('select', Blog::STATUS);
-
+        $grid->column('is_notify', __('邮件通知'))->bool();
         $grid->column('created_at', __('提交时间'))->sortable()
             ->filter('range', 'datetime');
 

@@ -16,6 +16,8 @@ class Blog extends Model
 
     const STATUS = ['审核中', '审核通过', '未通过', '异常'];
 
+    const IS_NOTIFY = ['否', '是'];
+
     /*public static function boot()
     {
         parent::boot();
