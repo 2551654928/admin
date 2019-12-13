@@ -28,10 +28,14 @@ class Send extends RowAction
         $content = $request->input('content');
         $content = str_replace([
             PHP_EOL,
-            '{name}',
+            '{name}', // 博客名称
+            '{url}', // 博客链接
+            '{link}', // 博客详情页
         ], [
             '<br />',
             $this->row->name,
+            $this->row->link,
+            env('APP_URL')."/blog/{$this->row->id}.html",
         ], $content);
 
         Cache::put($sendKey, $email, 180);
@@ -71,6 +75,7 @@ class Send extends RowAction
             0 => '自定义',
             1 => '通过',
             2 => '驳回',
+            3 => '异常',
         ])->default(0);
         $this->text('title', __('邮件标题'))->required()->placeholder('请输入邮件标题');
         $this->text('subtitle', __('邮件副标题'))->required()->placeholder('请输入邮件副标题');
@@ -115,6 +120,19 @@ $('.modal-body input[name=type]').on('ifChecked', function() {
 "随本邮件附十年公约一份，您可仔细阅读，达到申请条件后可再行申请！\n\n" +
 
 "特此通知\n";
+        break;
+    case 3:
+        title = '【十年之约】博客异常通知！';
+        subtitle = '博客异常通知';
+        content = "亲爱的 {name} 博主：\n\n" +
+
+"经十年之约项目组巡查，您的 {url} 无法正常访问。\n\n" +
+
+"若您更换了域名，请到您的大事记页面留言 {link}，这是您在十年之约的专属页面，以后凡涉及博客信息变更，请您一概至此页面留言。\n\n" +
+
+"若您已关闭博客，根据十年公约，请发送邮件至 admin@foreverblog.cn 告知项目组！\n\n" +
+
+"十年之约项目组\n";
         break;
   }
   $title.val(title);
