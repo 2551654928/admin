@@ -132,20 +132,22 @@ class BlogController extends AdminController
         // TODO 检测手动检测任务是否正在进行
         if ($start) {
             header('X-Accel-Buffering: no');
-            echo <<<'HTML'
+            $html=<<<'EOF'
+<head>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
 <style>
   p {
     font-size: 15px;
     margin: 0 0 5px;
   }
   .success {
-    color: green;
+    color: green !important;
   }
   .error {
-    color: red;
+    color: red !important;
   }
 </style>
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script>
   var timer = setInterval(function() {
     // 遍历异常博客
@@ -169,8 +171,8 @@ class BlogController extends AdminController
     $('body').animate({scrollTop: $('body').prop("scrollHeight")}, 1000);
   }, 3000);
 </script>
-HTML;
-
+EOF;
+            echo $html;
             set_time_limit(0);
             if(ob_get_length()) ob_end_clean();
             ob_implicit_flush();
