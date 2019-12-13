@@ -15,8 +15,8 @@
         <section class="wrapper style3 container special" id="blogs">
 
             <ul>
-                @if(isset($blogs[1]))
-                    @foreach($blogs[1] as $item)
+                @if(count($normal))
+                    @foreach($normal as $item)
                     <li>
                         <a href="{{ url("/blog/{$item->id}.html") }}" target="_blank" rel="noopener" class="item" title="{{ $item->message }}">
                             <img src="{{ gravatar($item->email) }}" alt="">
@@ -35,8 +35,8 @@
             </header>
 
             <ul>
-                @if(isset($blogs[4]))
-                    @foreach($blogs[4] as $blog)
+                @if(count($abnormal))
+                    @foreach($abnormal as $blog)
                         <li>
                             <a href="{{ url("/blog/{$blog->id}.html") }}" target="_blank" rel="noopener" class="item gray" title="{{ $blog->message }}">
                                 <img src="{{ gravatar($blog->email) }}" alt="">

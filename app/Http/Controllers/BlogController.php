@@ -11,11 +11,11 @@ class BlogController extends Controller
 {
     public function blogs()
     {
-        $blogs = Blog::whereIn('status', [1, 4])->select()
-            ->orderBy('created_at', 'asc')
-            ->get()
-            ->groupBy('status');
-        return view('layouts.blogs.list', compact('blogs'));
+        // 正常博客
+        // 异常博客
+        $normal = Blog::whereIn('status', [1, 3])->select()->orderBy('created_at', 'asc')->get();
+        $abnormal = Blog::where('status', 4)->select()->orderBy('created_at', 'asc')->get();
+        return view('layouts.blogs.list', compact('normal', 'abnormal'));
     }
 
     public function blog(Request $request)
