@@ -29,6 +29,20 @@ class DatelineController extends AdminController
         $grid->model()->orderBy('id', 'desc');
 
         $grid->quickSearch('content');
+        $grid->filter(function($filter) {
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+            $filter->column(1/2, function ($filter) {
+                $filter->where(function ($query) {
+                    $query->whereHas('blog', function ($query) {
+                        $query->where('name', 'like', "%{$this->input}%");
+                    });
+                }, '博客名称');
+            });
+            $filter->column(1/2, function ($filter) {
+                $filter->like('id', __('Id'));
+            });
+        });
 
         $grid->column('id', __('ID'));
          $grid->column('blog.name', __('博客名称'));
