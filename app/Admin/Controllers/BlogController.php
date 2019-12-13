@@ -4,13 +4,23 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Blog\Send;
 use App\Blog;
+use App\Config;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Encore\Admin\Layout\Column;
+use Encore\Admin\Layout\Content;
+use Encore\Admin\Layout\Row;
 use Encore\Admin\Show;
 use Encore\Admin\Widgets\Table;
 use App\Admin\Actions\Blog\Record;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Psr\Http\Message\ResponseInterface;
 
 class BlogController extends AdminController
 {
@@ -114,5 +124,121 @@ class BlogController extends AdminController
         $form->text('views', __('阅读量'))->rules('numeric');
 
         return $form;
+    }
+
+    public function check(Content $content, Request $request)
+    {
+        $start = $request->input('start');
+        // TODO 检测手动检测任务是否正在进行
+        if ($start) {
+            header('X-Accel-Buffering: no');
+            echo <<<'HTML'
+<style>
+  p {
+    font-size: 15px;
+    margin: 0 0 5px;
+  }
+  .success {
+    color: green;
+  }
+  .error {
+    color: red;
+  }
+</style>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  var timer = setInterval(function() {
+    // 遍历异常博客
+    var $errors = window.parent.$('#errors');
+    $('span.error, span.end').each(function(index, item) {
+        var $p = $(item).closest('p');
+        if ($(item).hasClass('end')) {
+            window.parent.$('#start').html('点击开始检测').attr('disabled', false);
+            return clearInterval(timer);
+        }
+        var id = $p.attr('id');
+        var name = $p.data('name');
+        var link = $p.data('link');
+        if ($errors.find('p#' + id).length <= 0) {
+            $errors.append('<p id="' + id + '">[' + name + '][<a target="_blank" href="' + link + '">' + link + '</a>]</p>');
+        }
+    });
+  }, 1000)
+  setInterval(function() {
+    // 滚动到底部
+    $('body').animate({scrollTop: $('body').prop("scrollHeight")}, 1000);
+  }, 3000);
+</script>
+HTML;
+
+            set_time_limit(0);
+            if(ob_get_length()) ob_end_clean();
+            ob_implicit_flush();
+
+            $this->checkBlogOut();
+
+            die;
+        }
+
+        return $content
+            ->title('手动检测')
+            ->description('手动检测博客状态')
+            ->row(view('admin.check'));
+    }
+
+    private function checkBlogOut()
+    {
+        ignore_user_abort(0);
+
+        $configs = Config::all()->whereIn('key', [
+            'auto_detection',
+            'auto_writing_dateline',
+            'auto_writing_period',
+            'max_abnormal_num'
+        ]);
+        $options = [];
+        foreach ($configs as $config) {
+            $options[$config->key] = $config->value;
+        }
+        $client = new Client([
+            'timeout' => 30,
+            'verify' => false,
+            'allow_redirects' => false,
+        ]);
+
+        DB::beginTransaction();
+        Blog::where('status', 1)->chunk(10, function ($blogs) use (&$client, &$options) {
+            try {
+                foreach ($blogs as $blog) {
+                    $this->out("<p data-name='{$blog->name}' data-link='{$blog->link}' id='{$blog->id}'>检测博客 [{$blog->name}][<a target='_blank' href='{$blog->link}'>{$blog->link}</a>] ...");
+                    $response = $client->get($blog->link);
+                    if ($response->getStatusCode() == 200) {
+                        $this->out("<span class='success'>√</span></p>");
+                    } else {
+                        // 手动检测直接列入疑似异常列表
+                        $data = ['status' => 3, 'abnormal_num' => 1, 'abnormal_at' => time()];
+                        if (!Blog::where('id', $blog->id)->update($data)) {
+                            DB::rollBack();
+                        }
+                        $this->out("<span class='error'>×</span></p>");
+                    }
+                }
+
+            } catch (\Exception $e) {
+                $this->out("<span class='error'>×</span></p>");
+            } catch (\Throwable $e) {
+                $this->out("<span class='error'>×</span></p>");
+            }
+        });
+
+        DB::commit();
+        $this->out('<p><span class="end">end</span></p>');
+    }
+
+    private function out(...$args)
+    {
+        foreach ($args as $arg) {
+            echo $arg;
+        }
     }
 }

@@ -109,35 +109,4 @@ class TaskController extends Controller
 
         return ['code' => 1, 'msg' => 'success'];
     }
-
-    public function check()
-    {
-        if (ob_get_level() == 0) {
-            ob_start();
-        }
-
-        for ($i = 0; $i<10; $i++){
-            echo "Line to show.";
-            echo str_pad('',4096)."\n";
-
-            ob_flush();
-            flush();
-            sleep(2);
-        }
-
-        echo "Done.";
-        ob_end_flush();
-    }
-
-    private function out(...$args)
-    {
-        if (ob_get_level() == 0) ob_start();
-        foreach ($args as $i => $arg) {
-            echo "<span><font color='green'>root@lsky-pro</font>:~$ {$arg}</span>";
-            echo str_pad('', 4096) . "\n";
-            ob_flush();
-            flush();
-            sleep(1);
-        }
-    }
 }

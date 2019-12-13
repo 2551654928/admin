@@ -12,6 +12,7 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('admin.home');
     $router->get('settings', 'SettingController@index');
+    $router->get('check', 'BlogController@check');
     $router->resource('blogs', BlogController::class);
     $router->resource('notices', NoticeController::class);
     $router->resource('articles', ArticleController::class);

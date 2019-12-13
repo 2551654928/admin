@@ -18,4 +18,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/inspect', 'TaskController@inspect'); // 自动检测
-Route::get('/check', 'TaskController@check'); // 手动检测
