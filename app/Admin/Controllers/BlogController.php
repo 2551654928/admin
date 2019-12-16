@@ -41,13 +41,13 @@ class BlogController extends AdminController
         $grid = new Grid(new Blog);
         $grid->model()->orderBy('id', 'desc');
 
-        $grid->filter(function($filter) {
+        $grid->filter(function ($filter) {
             $filter->disableIdFilter();
-            $filter->column(1/2, function ($filter) {
+            $filter->column(1 / 2, function ($filter) {
                 $filter->like('name', __('博客名称'));
                 $filter->like('email', __('邮箱'));
             });
-            $filter->column(1/2, function ($filter) {
+            $filter->column(1 / 2, function ($filter) {
                 $filter->like('link', __('链接'));
                 $filter->like('message', __('寄语'));
             });
@@ -62,7 +62,7 @@ class BlogController extends AdminController
                 return new Table(['ID', __('记录时间'), __('内容')], $datelines->toArray());
             });
         $grid->column('avatar', __('头像'))->display(function ($avatar) {
-            return '<img style="border-radius: 50%" width="20" src="'.$avatar.'">';
+            return '<img style="border-radius: 50%" width="20" src="' . $avatar . '">';
         });
         $grid->column('email', __('邮箱'));
         $grid->column('link', __('链接地址'))->link()
@@ -132,7 +132,7 @@ class BlogController extends AdminController
         // TODO 检测手动检测任务是否正在进行
         if ($start) {
             header('X-Accel-Buffering: no');
-            $html=<<<'EOF'
+            $html = <<<'EOF'
 <head>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 </head>
@@ -181,7 +181,7 @@ EOF;
             $content = ob_get_contents();
             set_time_limit(0);
             ignore_user_abort(0);
-            if(ob_get_length()) ob_end_clean();
+            if (ob_get_length()) ob_end_clean();
             ob_implicit_flush();
 
             echo $content;
@@ -215,27 +215,31 @@ EOF;
         ]);
 
         DB::beginTransaction();
-        Blog::where('status', 1)->chunk(10, function ($blogs) use (&$client, &$options) {
-            try {
-                foreach ($blogs as $blog) {
+        $error = function ($id) {
+            // 手动检测直接列入疑似异常列表
+            $data = ['status' => 3, 'abnormal_num' => 1, 'abnormal_at' => time()];
+            if (!Blog::where('id', $id)->update($data)) {
+                DB::rollBack();
+            }
+        };
+        Blog::where('status', 1)->chunk(10, function ($blogs) use (&$client, &$options, &$error) {
+            foreach ($blogs as $blog) {
+                try {
                     $this->out("<p class='blog' data-name='{$blog->name}' data-link='{$blog->link}' id='{$blog->id}'>检测博客 [{$blog->name}][<a target='_blank' href='{$blog->link}'>{$blog->link}</a>] ...");
                     $response = $client->get($blog->link);
                     if (in_array($response->getStatusCode(), [200, 301, 302])) {
                         $this->out("<span class='success'>√</span></p>");
                     } else {
-                        // 手动检测直接列入疑似异常列表
-                        $data = ['status' => 3, 'abnormal_num' => 1, 'abnormal_at' => time()];
-                        if (!Blog::where('id', $blog->id)->update($data)) {
-                            DB::rollBack();
-                        }
+                        $error($blog->id);
                         $this->out("<span class='error'>×</span></p>");
                     }
+                } catch (\Exception $e) {
+                    $error($blog->id);
+                    $this->out("<span class='error'>×</span></p>");
+                } catch (\Throwable $e) {
+                    $error($blog->id);
+                    $this->out("<span class='error'>×</span></p>");
                 }
-
-            } catch (\Exception $e) {
-                $this->out("<span class='error'>×</span></p>");
-            } catch (\Throwable $e) {
-                $this->out("<span class='error'>×</span></p>");
             }
         });
 
