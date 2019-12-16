@@ -21,7 +21,7 @@ class BlogController extends Controller
     public function blog(Request $request)
     {
         $id = $request->route('id');
-        $blog = Blog::where('id', $id)->whereIn('status', [1, 3])->firstOrFail();
+        $blog = Blog::where('id', $id)->where('status', '<>', 0)->firstOrFail();
         $blog->increment('views');
         return view('layouts.blogs.detail', compact('blog'));
     }
