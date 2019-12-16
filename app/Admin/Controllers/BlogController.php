@@ -163,6 +163,7 @@ class BlogController extends AdminController
         if ($(item).hasClass('end')) {
             window.parent.$('#start').html('点击开始检测').attr('disabled', false);
             clearInterval(toTop);
+            alert('检测完成');
             return clearInterval(timer);
         }
         var id = $p.attr('id');
