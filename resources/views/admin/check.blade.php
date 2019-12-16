@@ -18,7 +18,7 @@
     <div class="col-md-6">
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">检测进度</h3>
+                <h3 class="box-title">检测进度 <small>已检测 <span id="normal-num">0</span> 个</small></h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -36,7 +36,7 @@
     <div class="col-md-6">
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">异常博客</h3>
+                <h3 class="box-title">异常博客 <small>共 <span id="abnormal-num">0</span> 个</small></h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

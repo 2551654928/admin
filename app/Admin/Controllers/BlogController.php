@@ -149,13 +149,20 @@ class BlogController extends AdminController
   }
 </style>
 <script>
+  var toTop = setInterval(function() {
+    // 滚动到底部
+    $('body').animate({scrollTop: $('body').prop("scrollHeight")}, 1000);
+  }, 3000);
   var timer = setInterval(function() {
+    // 检测数量
+    window.parent.$('#normal-num').text($('span.success').length);
     // 遍历异常博客
     var $errors = window.parent.$('#errors');
     $('span.error, span.end').each(function(index, item) {
         var $p = $(item).closest('p');
         if ($(item).hasClass('end')) {
             window.parent.$('#start').html('点击开始检测').attr('disabled', false);
+            clearInterval(toTop);
             return clearInterval(timer);
         }
         var id = $p.attr('id');
@@ -163,13 +170,10 @@ class BlogController extends AdminController
         var link = $p.data('link');
         if ($errors.find('p#' + id).length <= 0) {
             $errors.append('<p id="' + id + '">[' + name + '][<a target="_blank" href="' + link + '">' + link + '</a>]</p>');
+            window.parent.$('#abnormal-num').text($('span.error').length);
         }
     });
-  }, 1000)
-  setInterval(function() {
-    // 滚动到底部
-    $('body').animate({scrollTop: $('body').prop("scrollHeight")}, 1000);
-  }, 3000);
+  }, 1000);
 </script>
 EOF;
             echo $html;
@@ -213,7 +217,7 @@ EOF;
         Blog::where('status', 1)->chunk(10, function ($blogs) use (&$client, &$options) {
             try {
                 foreach ($blogs as $blog) {
-                    $this->out("<p data-name='{$blog->name}' data-link='{$blog->link}' id='{$blog->id}'>检测博客 [{$blog->name}][<a target='_blank' href='{$blog->link}'>{$blog->link}</a>] ...");
+                    $this->out("<p class='blog' data-name='{$blog->name}' data-link='{$blog->link}' id='{$blog->id}'>检测博客 [{$blog->name}][<a target='_blank' href='{$blog->link}'>{$blog->link}</a>] ...");
                     $response = $client->get($blog->link);
                     if (in_array($response->getStatusCode(), [200, 301, 302])) {
                         $this->out("<span class='success'>√</span></p>");
