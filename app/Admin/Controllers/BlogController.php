@@ -149,7 +149,7 @@ class BlogController extends AdminController
   }
 </style>
 <script>
-  var toTop = setInterval(function() {
+  var toBottom = setInterval(function() {
     // 滚动到底部
     $('body').animate({scrollTop: $('body').prop("scrollHeight")}, 1000);
   }, 3000);
@@ -162,7 +162,7 @@ class BlogController extends AdminController
         var $p = $(item).closest('p');
         if ($(item).hasClass('end')) {
             window.parent.$('#start').html('点击开始检测').attr('disabled', false);
-            clearInterval(toTop);
+            clearInterval(toBottom);
             alert('检测完成');
             return clearInterval(timer);
         }
