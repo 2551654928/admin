@@ -175,6 +175,7 @@ EOF;
             echo $html;
             $content = ob_get_contents();
             set_time_limit(0);
+            ignore_user_abort(0);
             if(ob_get_length()) ob_end_clean();
             ob_implicit_flush();
 
@@ -192,8 +193,6 @@ EOF;
 
     private function checkBlogOut()
     {
-        ignore_user_abort(0);
-
         $configs = Config::all()->whereIn('key', [
             'auto_detection',
             'auto_writing_dateline',
@@ -216,7 +215,7 @@ EOF;
                 foreach ($blogs as $blog) {
                     $this->out("<p data-name='{$blog->name}' data-link='{$blog->link}' id='{$blog->id}'>检测博客 [{$blog->name}][<a target='_blank' href='{$blog->link}'>{$blog->link}</a>] ...");
                     $response = $client->get($blog->link);
-                    if ($response->getStatusCode() == 200) {
+                    if (in_array($response->getStatusCode(), [200, 301, 302])) {
                         $this->out("<span class='success'>√</span></p>");
                     } else {
                         // 手动检测直接列入疑似异常列表
