@@ -216,6 +216,7 @@ EOF;
 
         DB::beginTransaction();
         $error = function ($id) {
+            $this->out("<span class='error'>×</span></p>");
             // 手动检测直接列入疑似异常列表
             $data = ['status' => 3, 'abnormal_num' => 1, 'abnormal_at' => time()];
             if (!Blog::where('id', $id)->update($data)) {
@@ -238,10 +239,8 @@ EOF;
                     $promise->wait();
                 } catch (\Exception $e) {
                     $error($blog->id);
-                    $this->out("<span class='error'>×</span></p>");
                 } catch (\Throwable $e) {
                     $error($blog->id);
-                    $this->out("<span class='error'>×</span></p>");
                 }
             }
         });
