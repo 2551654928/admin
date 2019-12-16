@@ -173,10 +173,12 @@ class BlogController extends AdminController
 </script>
 EOF;
             echo $html;
+            $content = ob_get_contents();
             set_time_limit(0);
             if(ob_get_length()) ob_end_clean();
             ob_implicit_flush();
 
+            echo $content;
             $this->checkBlogOut();
 
             die;
