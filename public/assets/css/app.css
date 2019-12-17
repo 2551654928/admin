@@ -108,6 +108,10 @@ table td {
   padding-bottom: 10px;
   border-bottom: 1px #e4dcdc solid;
 }
+#comments-box ul#comments li.item .comment-item .content a.at {
+  color: #5276ff;
+  border: 0;
+}
 #comments-box ul#comments li.item .comment-item a.reply {
   position: absolute;
   right: 0;

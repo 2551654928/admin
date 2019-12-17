@@ -139,6 +139,23 @@
                     scrollTop: $('#comment-form').offset().top - 160 + "px"
                 }, 500);
             });
+
+            // 艾特字符高亮
+            $('.comment-item .content').each(function (index, item) {
+                try {
+                    var res = $(item).html().match(/@(\S*)&nbsp;/); // 匹配艾特名称
+                    if (res) {
+                        var name = res[1];
+                        var content = $(item).html().replace(
+                            new RegExp('@' + name, 'ig'),
+                            '<a href="javascript:void(0)" class="at">@' + name + '</a>'
+                        );
+                        $(item).html(content);
+                    }
+                } catch (e) {
+
+                }
+            });
         })
     </script>
 @endsection
