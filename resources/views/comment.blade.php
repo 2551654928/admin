@@ -91,27 +91,34 @@
     <script>
         $(function () {
             var at = '';
+            var loading = false;
             $reply = $('input[name=reply_id]');
             $parent = $('input[name=parent_id]');
             $content = $('textarea[name=content]');
 
             $('#comment-form').submit(function (e) {
                 e.preventDefault();
-                $.ajax({
-                    url: "{{ url('/comment/'.$type) }}",
-                    type: "post",
-                    data: $(this).serialize(),
-                    dataType: "json",
-                    success: function (response) {
-                        alert(response.message);
-                        if (response.code) {
-                            window.location.href = '';
+                if (!loading) {
+                    loading = true;
+                    $.ajax({
+                        url: "{{ url('/comment/'.$type) }}",
+                        type: "post",
+                        data: $(this).serialize(),
+                        dataType: "json",
+                        success: function (response) {
+                            alert(response.message);
+                            if (response.code) {
+                                window.location.href = '';
+                            }
+                        },
+                        error: function (error) {
+                            alert('当前无法评论, 请稍后重试')
+                        },
+                        complete: function () {
+                            loading = false;
                         }
-                    },
-                    error: function (error) {
-                        alert('当前无法评论, 请稍后重试')
-                    }
-                });
+                    });
+                }
             });
 
             $('#cancel-reply').click(function (e) {
