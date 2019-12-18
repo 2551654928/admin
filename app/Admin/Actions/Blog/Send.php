@@ -45,10 +45,10 @@ class Send extends RowAction
                 'title' => $title,
                 'content' => $content,
                 'subtitle' => $subtitle,
-            ], function ($mail) use ($email, $title, $status) {
+            ], function ($mail) use ($email, $title, $status, $type) {
                 $mail->to($email);
                 $mail->subject($title);
-                if ($status == 1 || $status == 2) {
+                if ($type == 1 || $type == 2) {
                     // 审核通过或驳回增加附件
                     $mail->attach(storage_path('十年之约公约.pdf'));
                 }
