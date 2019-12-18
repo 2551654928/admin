@@ -48,8 +48,8 @@ class Send extends RowAction
             ], function ($mail) use ($email, $title, $status) {
                 $mail->to($email);
                 $mail->subject($title);
-                if ($status == 1) {
-                    // 审核通过增加附件
+                if ($status == 1 || $status == 2) {
+                    // 审核通过或驳回增加附件
                     $mail->attach(storage_path('十年之约公约.pdf'));
                 }
             });
