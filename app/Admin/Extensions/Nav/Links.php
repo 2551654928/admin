@@ -18,7 +18,7 @@ class Links
 <li title="待审评论">
     <a href="$commentLink">
       <i class="fa fa-envelope-o"></i>
-      <span class="label label-success">$commentNum</span>
+      <span class="label label-danger">$commentNum</span>
     </a>
 </li>
 
