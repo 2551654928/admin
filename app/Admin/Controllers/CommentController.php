@@ -37,11 +37,7 @@ class CommentController extends AdminController
         $grid->filter(function($filter) {
             $filter->disableIdFilter();
             $filter->column(1/2, function ($filter) {
-                $filter->where(function ($query) {
-                    $query->whereHas('blog', function ($query) {
-                        $query->where('name', 'like', "%{$this->input}%");
-                    });
-                }, '博客名称');
+                $filter->like('name', __('名称'));
                 $filter->like('email', __('邮箱'));
             });
             $filter->column(1/2, function ($filter) {
