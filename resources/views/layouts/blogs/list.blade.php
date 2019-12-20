@@ -19,7 +19,7 @@
                     @foreach($normal as $item)
                     <li>
                         <a href="{{ url("/blog/{$item->id}.html") }}" target="_blank" rel="noopener" class="item" title="{{ $item->message }}">
-                            <img src="{{ gravatar($item->email) }}" alt="">
+                            <img data-original="{{ gravatar($item->email) }}" alt="">
                             <div class="meta">
                                 <h4 class="name">{{ $item->name }}</h4>
                                 <span class="date"><span class="str">签约时间: </span>{{ $item->created_at->format('Y-m-d') }}</span>
@@ -39,7 +39,7 @@
                     @foreach($abnormal as $blog)
                         <li>
                             <a href="{{ url("/blog/{$blog->id}.html") }}" target="_blank" rel="noopener" class="item gray" title="{{ $blog->message }}">
-                                <img src="{{ gravatar($blog->email) }}" alt="">
+                                <img data-original="{{ gravatar($blog->email) }}" alt="">
                                 <div class="meta">
                                     <h4 class="name">{{ $blog->name }}</h4>
                                     <span class="date"><span class="str">签约时间: </span>{{ $blog->created_at->format('Y-m-d') }}</span>
@@ -53,4 +53,13 @@
         </section>
 
     </article>
+@endsection
+
+@section('js')
+<script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script>
+    $("img").lazyload({
+        // effect: "fadeIn"
+    });
+</script>
 @endsection
