@@ -35,12 +35,21 @@ class BlogController extends Controller
             if ($closeApply) {
                 return ['code' => 0, 'message' => '申请系统已被管理员关闭!'];
             }
+            $postData = $request->all();
 
             $email = $request->input('email');
+            $link = $request->input('link');
             /*if (Blog::where('email', $email)->where('status', '<>', 2)->count()) {
                 return ['code' => 0, 'message' => '检测到系统已存在该邮箱, 同一个邮箱只允许申请一次!'];
             }*/
-            $validator = Validator::make($request->all(), [
+            if ($link) {
+                if(!preg_match("/^http(s)?:\\/\\/.+/", $link)) {
+                    // 补上协议头
+                    $link = $postData['link'] = 'http://'.$link;
+                }
+            }
+
+            $validator = Validator::make($postData, [
                 'name' => 'required|min:2|max:20',
                 'email' => 'required|email',
                 'link' => 'required|url|max:50',
@@ -58,6 +67,13 @@ class BlogController extends Controller
             ]);
             if ($validator->fails()) {
                 return ['code' => 0, 'message' => $validator->errors()->first()];
+            }
+            $parse = parse_url($link);
+            if ($parse && isset($parse['host'])) {
+                $host = $parse['host'];
+                if (Blog::where('link', 'like', "%{$host}%")->where('status', '<>', 2)->first()) {
+                    return ['code' => 0, 'message' => "您申请的博客 {$host} 已存在，请勿重复申请！"];
+                }
             }
             $data = $validator->validated();
             $data['status'] = 0;
