@@ -61,6 +61,8 @@
                 alert(response.message);
                 if (response.code) {
                     window.location.href = "{{ url('/') }}";
+                } else {
+                    $('#verify').click();
                 }
             },
             error: function () {
