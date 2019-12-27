@@ -71,7 +71,11 @@ class BlogController extends Controller
             $parse = parse_url($link);
             if ($parse && isset($parse['host'])) {
                 $host = $parse['host'];
-                if (Blog::where('link', 'like', "%{$host}%")->where('status', '<>', 2)->first()) {
+                if (Blog::where('link', 'like', "%{$host}%")
+                    ->where('email', $email)
+                    ->where('status', '<>', 2)
+                    ->count()
+                ) {
                     return ['code' => 0, 'message' => "您申请的博客 {$host} 已存在，请勿重复申请！"];
                 }
             }
