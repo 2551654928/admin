@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         return $content
             ->title('仪表盘')
-            ->description('Description...')
+            ->description('Dashboard')
             ->row(view('admin.dashboard.title'))
             ->row(self::statistics())
             ->row(function (Row $row) {
