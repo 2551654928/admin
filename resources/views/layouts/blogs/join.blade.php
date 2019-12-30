@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="十年之约,十年之约签约博客申请">
+    <meta name="keywords" content="十年之约,个人博客,博客十年之约,博客收录,博客交流,博客展示,十年之约,十年之约签约博客申请">
     <meta name="description" content="记录我们的十年">
     <link rel="Bookmark" href="/favicon.ico">
     <link rel="Shortcut Icon" href="/favicon.ico"/>

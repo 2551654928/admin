@@ -2,6 +2,8 @@
 
 @section('title', "【{$blog->name}】十年之约")
 
+@section('description', \Illuminate\Support\Str::limit($blog->message, 190))
+
 @section('content')
     <!-- Main -->
     <article id="main">

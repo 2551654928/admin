@@ -11,6 +11,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="zh-CN" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="@yield('description', '一个人的寂寞，一群人的狂欢。')" />
+    <meta name="keywords" content="十年之约,个人博客,博客十年之约,博客收录,博客交流,博客展示,独立博客,记录我们的十年" />
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/main.css" />
     <link rel="stylesheet" href="/assets/css/app.css?ver=20191217" />
@@ -71,7 +73,7 @@
         </ul>
 
         <ul class="copyright">
-            <li>© 十年之约 2017-2019 </li> <li><a href="http://www.beian.miit.gov.cn/">蜀ICP备15021049号-3</a></li>&nbsp; <li><a href="http://www.jetli.com.cn">博客志：优秀博客</a></li>
+            <li>© 十年之约 2017 - {{ date('Y', time()) }} </li> <li><a href="http://www.beian.miit.gov.cn/">蜀ICP备15021049号-3</a></li>&nbsp; <li><a href="http://www.jetli.com.cn">博客志：优秀博客</a></li>
         </ul>
 
     </footer>
@@ -95,7 +97,7 @@
         hm.src = "https://hm.baidu.com/hm.js?0c7836ac8678d921d1d4ad74e6affa81";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
-        
+
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
         if (curProtocol === 'https') {
