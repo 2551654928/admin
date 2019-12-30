@@ -19,11 +19,30 @@
  */
 
 use Encore\Admin\Facades\Admin;
+use Encore\Admin\Form;
+use Encore\Admin\Show;
 
 Encore\Admin\Form::forget(['map', 'editor']);
 
 Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) {
-
     $navbar->right(new \App\Admin\Extensions\Nav\Links);
+});
 
+Form::init(function (Form $form) {
+//    $form->disableEditingCheck();
+    $form->disableCreatingCheck();
+//    $form->disableViewCheck();
+    $form->tools(function (Form\Tools $tools) {
+        $tools->disableDelete();
+        $tools->disableView();
+//        $tools->disableList();
+    });
+});
+
+Show::init(function (Show $show) {
+    $show->panel()->tools(function (Show\Tools $tools) {
+        $tools->disableDelete();
+//        $tools->disableEdit();
+//        $tools->disableList();
+    });
 });
