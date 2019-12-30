@@ -89,80 +89,80 @@
 
 @section('js')
 <script>
-        $(function () {
-            var at = '';
-            var loading = false;
-            $reply = $('input[name=reply_id]');
-            $parent = $('input[name=parent_id]');
-            $content = $('textarea[name=content]');
+    $(function () {
+        var at = '';
+        var loading = false;
+        $reply = $('input[name=reply_id]');
+        $parent = $('input[name=parent_id]');
+        $content = $('textarea[name=content]');
 
-            $('#comment-form').submit(function (e) {
-                e.preventDefault();
-                if (!loading) {
-                    loading = true;
-                    $.ajax({
-                        url: "{{ url('/comment/'.$type) }}",
-                        type: "post",
-                        data: $(this).serialize(),
-                        dataType: "json",
-                        success: function (response) {
-                            alert(response.message);
-                            if (response.code) {
-                                window.location.href = '';
-                            }
-                        },
-                        error: function (error) {
-                            alert('当前无法评论, 请稍后重试')
-                        },
-                        complete: function () {
-                            loading = false;
+        $('#comment-form').submit(function (e) {
+            e.preventDefault();
+            if (!loading) {
+                loading = true;
+                $.ajax({
+                    url: "{{ url('/comment/'.$type) }}",
+                    type: "post",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function (response) {
+                        alert(response.message);
+                        if (response.code) {
+                            window.location.href = '';
                         }
-                    });
-                }
-            });
-
-            $('#cancel-reply').click(function (e) {
-                e.preventDefault();
-                $parent.val(0);
-                $reply.val(0);
-                var regex = new RegExp(at);
-                $content.val($content.val().replace(regex, ''));
-                $('#cancel-reply').hide();
-            });
-
-            $('a.reply').click(function (e) {
-                e.preventDefault();
-                $parent.val($(this).data('parent-id'));
-                $reply.val($(this).data('reply-id'));
-
-                var regex = new RegExp(at);
-                $content.val(($content.val()).replace(regex, ''));
-
-                at = $(this).data('at');
-                $content.val(at + $content.val());
-
-                $('#cancel-reply').data('at', at).show();
-                $("html, body").animate({
-                    scrollTop: $('#comment-form').offset().top - 160 + "px"
-                }, 500);
-            });
-
-            // 艾特字符高亮
-            $('.comment-item .content').each(function (index, item) {
-                try {
-                    var res = $(item).html().match(/@(\S*)&nbsp;/); // 匹配艾特名称
-                    if (res) {
-                        var name = res[1];
-                        var content = $(item).html().replace(
-                            new RegExp('@' + name, 'ig'),
-                            '<a href="javascript:void(0)" class="at">@' + name + '</a>'
-                        );
-                        $(item).html(content);
+                    },
+                    error: function (error) {
+                        alert('当前无法评论, 请稍后重试')
+                    },
+                    complete: function () {
+                        loading = false;
                     }
-                } catch (e) {
+                });
+            }
+        });
 
+        $('#cancel-reply').click(function (e) {
+            e.preventDefault();
+            $parent.val(0);
+            $reply.val(0);
+            var regex = new RegExp(at);
+            $content.val($content.val().replace(regex, ''));
+            $('#cancel-reply').hide();
+        });
+
+        $('a.reply').click(function (e) {
+            e.preventDefault();
+            $parent.val($(this).data('parent-id'));
+            $reply.val($(this).data('reply-id'));
+
+            var regex = new RegExp(at);
+            $content.val(($content.val()).replace(regex, ''));
+
+            at = $(this).data('at');
+            $content.val(at + $content.val());
+
+            $('#cancel-reply').data('at', at).show();
+            $("html, body").animate({
+                scrollTop: $('#comment-form').offset().top - 160 + "px"
+            }, 500);
+        });
+
+        // 艾特字符高亮
+        $('.comment-item .content').each(function (index, item) {
+            try {
+                var res = $(item).html().match(/@(\S*)&nbsp;/); // 匹配艾特名称
+                if (res) {
+                    var name = res[1];
+                    var content = $(item).html().replace(
+                        new RegExp('@' + name, 'ig'),
+                        '<a href="javascript:void(0)" class="at">@' + name + '</a>'
+                    );
+                    $(item).html(content);
                 }
-            });
-        })
-    </script>
+            } catch (e) {
+
+            }
+        });
+    })
+</script>
 @endsection
