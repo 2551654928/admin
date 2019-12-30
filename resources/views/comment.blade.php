@@ -88,7 +88,7 @@
 </section>
 
 @section('js')
-    <script>
+<script>
         $(function () {
             var at = '';
             var loading = false;
