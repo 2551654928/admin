@@ -44,6 +44,8 @@ function gravatar($email, $s = 96, $d = 'mp', $r = 'g', $img = false, $atts = ar
 
 /**
  * 是否进入哀悼模式(首页变灰)
+ *
+ * @return bool
  */
 function is_mourning()
 {
