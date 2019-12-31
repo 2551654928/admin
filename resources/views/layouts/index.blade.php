@@ -109,4 +109,5 @@
         </section>
 
     </article>
+    <script src="/assets/js/snow.min.js"></script>
 @endsection
