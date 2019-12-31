@@ -41,3 +41,26 @@ function gravatar($email, $s = 96, $d = 'mp', $r = 'g', $img = false, $atts = ar
     }
     return $url;
 }
+
+/**
+ * 是否进入哀悼模式(首页变灰)
+ */
+function is_mourning()
+{
+    date_default_timezone_set('PRC');
+    ini_set('date.timezone', 'Asia/Shanghai');
+
+    // 0404: 清明节
+    // 1209: 一二·九抗日救亡运动
+    // 1213: 南京大屠杀
+    // 0127: 国际大屠杀纪念日
+    // 0728: 唐山大地震
+    // 0512: 汶川大地震
+
+    $array = ['0404', '1209', '1213', '0127', '0728', '0512'];
+    if (in_array(date('md'), $array)) {
+        return true;
+    }
+
+    return false;
+}

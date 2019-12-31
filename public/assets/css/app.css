@@ -317,6 +317,13 @@ ul.pagination li.page-item .page-link {
 .cright blockquote p {
   margin: 0 0 5px 0;
 }
+body#mourning * {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+}
 @media only screen and (max-width: 767px) {
   .adapro {
     display: block;
