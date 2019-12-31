@@ -4,6 +4,20 @@
 
 @section('header-class', 'alt')
 
+@if(is_mourning())
+@section('css')
+<style>
+    * {
+        filter: grayscale(100%);
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+    }
+</style>
+@endsection;
+@endif
+
 @section('content')
     <!-- Banner -->
     <section id="banner">

@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="/assets/css/app.css?ver=20191217" />
     <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
 </head>
-<body class="index is-preload" @if(is_mourning())id="mourning"@endif>
+<body class="index is-preload">
+@yield('css')
 <div id="page-wrapper">
 
     <!-- Header -->
