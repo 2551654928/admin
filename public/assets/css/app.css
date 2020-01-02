@@ -324,6 +324,10 @@ body#mourning * {
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
 }
+#banner .inner {
+  border-radius: 30px;
+  box-shadow: 0 0 20px 0 rgba(103, 68, 93, 0.32156863);
+}
 @media only screen and (max-width: 767px) {
   .adapro {
     display: block;
