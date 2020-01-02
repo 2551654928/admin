@@ -66,11 +66,11 @@
     <footer id="footer">
 
         <ul class="icons">
-            <li><a href="#" class="icon brands circle fa-twitter"><span class="label">Twitter</span></a></li>
-            <li><a href="#" class="icon brands circle fa-facebook-f"><span class="label">Facebook</span></a></li>
-            <li><a href="#" class="icon brands circle fa-google-plus-g"><span class="label">Google+</span></a></li>
-            <li><a href="#" class="icon brands circle fa-github"><span class="label">Github</span></a></li>
-            <li><a href="#" class="icon brands circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+            <li><a href="/" class="icon brands circle fa-home"><span class="label">Home</span></a></li>
+            <li><a href="https://jq.qq.com/?_wv=1027&k=5CFhYXd" class="icon brands circle fa-qq" target="_blank"><span class="label">QQ</span></a></li>
+            <li><a href="{{ url('/about.html') }}" class="icon brands circle fa-flag"><span class="label">Flag</span></a></li>
+            <li><a href="https://github.com/foreverblog" class="icon brands circle fa-github" target="_blank"><span class="label">Github</span></a></li>
+            <li><a href="{{ url('/donate.html') }}" class="icon brands circle fa-money"><span class="label">Money</span></a></li>
         </ul>
 
         <ul class="copyright">

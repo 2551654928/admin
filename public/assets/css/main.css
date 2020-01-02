@@ -1893,12 +1893,10 @@ input[type="email"] {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     display: inline-block;
-    font-style: normal;
-    font-variant: normal;
+    font: normal normal normal 22px FontAwesome;
     text-rendering: auto;
-    line-height: 1;
     text-transform: none !important;
-    font-family: 'Font Awesome 5 Free';
+    /* font-family: 'Font Awesome 5 Free'; */
     font-weight: 400;
 }
 
@@ -1911,7 +1909,7 @@ input[type="email"] {
 }
 
 .icon.brands:before {
-    font-family: 'Font Awesome 5 Brands';
+    /* font-family: 'Font Awesome 5 Brands'; */
 }
 
 .icon.circle {
@@ -1936,30 +1934,30 @@ input[type="email"] {
     top: -0.2em;
 }
 
-.icon.circle.fa-twitter {
+.icon.circle.fa-home {
     background: #70aecd;
     color: #fff;
 }
 
-.icon.circle.fa-twitter:hover {
+.icon.circle.fa-home:hover {
     background: #7fb7d2;
 }
 
-.icon.circle.fa-facebook-f {
+.icon.circle.fa-qq {
     background: #7490c3;
     color: #fff;
 }
 
-.icon.circle.fa-facebook-f:hover {
+.icon.circle.fa-qq:hover {
     background: #829bc9;
 }
 
-.icon.circle.fa-google-plus-g {
+.icon.circle.fa-flag {
     background: #db6b67;
     color: #fff;
 }
 
-.icon.circle.fa-google-plus-g:hover {
+.icon.circle.fa-flag:hover {
     background: #df7b77;
 }
 
@@ -1972,12 +1970,12 @@ input[type="email"] {
     background: #e1b89b;
 }
 
-.icon.circle.fa-dribbble {
+.icon.circle.fa-money {
     background: #da83ae;
     color: #fff;
 }
 
-.icon.circle.fa-dribbble:hover {
+.icon.circle.fa-money:hover {
     background: #df93b8;
 }
 

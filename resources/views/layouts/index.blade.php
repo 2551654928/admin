@@ -123,5 +123,8 @@
         </section>
 
     </article>
-    <script src="/assets/js/snow.min.js"></script>
+@endsection
+
+@section('js')
+<script src="/assets/js/snow.min.js"></script>
 @endsection
