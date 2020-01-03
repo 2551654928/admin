@@ -86,7 +86,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '{{ url('/blogs.html') }}',
+                url: '{{ url('/api/blogs') }}',
                 type: 'post',
                 data: {page: page},
                 dataType: 'json',
