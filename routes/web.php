@@ -22,7 +22,7 @@ Route::get('articles.html', 'ArticleController@articles')->defaults('type', 'art
 Route::get('article/{id}.html', 'ArticleController@article')->defaults('type', 'article');
 
 // 博客
-Route::get('blogs.html', 'BlogController@blogs');
+Route::any('blogs.html', 'BlogController@blogs');
 Route::get('blog/{id}.html', 'BlogController@blog');
 
 // 申请加入

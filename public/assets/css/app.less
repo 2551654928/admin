@@ -282,6 +282,33 @@ ul.pagination {
                 }
             }
         }
+
+        &.hide {
+            position: relative;
+            height: 70px;
+            overflow: hidden;
+            .show-all {
+                display: block;
+            }
+        }
+    }
+
+    #show-more, #show-all {
+        outline: none;
+        border: none;
+        color: #868686;
+        font-size: 15px;
+        width: 100%;
+        margin-bottom: 1rem;
+        &#show-more {
+            margin-bottom: 5rem;
+            &[disabled] {
+                cursor: not-allowed;
+            }
+        }
+        i {
+            font-size: 14px;
+        }
     }
 }
 

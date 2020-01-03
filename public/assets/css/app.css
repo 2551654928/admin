@@ -230,6 +230,35 @@ ul.pagination li.page-item .page-link {
   font-size: 14px;
   color: gray;
 }
+#blogs ul.hide {
+  position: relative;
+  height: 70px;
+  overflow: hidden;
+}
+#blogs ul.hide .show-all {
+  display: block;
+}
+#blogs #show-more,
+#blogs #show-all {
+  outline: none;
+  border: none;
+  color: #868686;
+  font-size: 15px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+#blogs #show-more#show-more,
+#blogs #show-all#show-more {
+  margin-bottom: 5rem;
+}
+#blogs #show-more#show-more[disabled],
+#blogs #show-all#show-more[disabled] {
+  cursor: not-allowed;
+}
+#blogs #show-more i,
+#blogs #show-all i {
+  font-size: 14px;
+}
 #cancel-reply {
   display: none;
   position: absolute;
