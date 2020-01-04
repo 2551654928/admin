@@ -13,7 +13,7 @@ class BlogController extends Controller
     public function blogs()
     {
         // 正常博客
-        $normal = Blog::whereIn('status', [1, 3])->select()->orderBy('created_at', 'asc')->get();
+        $normal = Blog::whereIn('status', [1, 3])->select()->orderBy('created_at', 'asc')->offset(0)->limit(100)->get();
         // 异常博客
         $abnormal = Blog::where('status', 4)->select()->orderBy('created_at', 'asc')->get();
         return view('layouts.blogs.list', compact('normal', 'abnormal'));
