@@ -297,6 +297,18 @@ ul.pagination li.page-item .page-link {
   right: 0;
   width: 100%;
 }
+.cleft .ribbon {
+  position: absolute;
+  top: 15px;
+  right: -45px;
+  width: 150px;
+  background-color: #dc3545;
+  color: white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  text-align: center;
+  transform: rotate(45deg);
+}
 .linkbtn {
   background-color: #8ca8c5;
   color: #fff;

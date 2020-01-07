@@ -27,9 +27,12 @@
                         <a href="{{ $blog->link }}" target="_blank">
                             <div class="linkbtn">查看TA的网站</div>
                         </a>
+                        @if($blog->status == 4)
+                            <div class="ribbon">异 常</div>
+                        @endif
                     </div>
                     <div class="cright">
-                        @if(count($blog->datelines))
+                        @if(!$blog->datelines->isEmpty())
                             <h2>大事记</h2>
                             @foreach($blog->datelines as $dateline)
                             <div class="item">

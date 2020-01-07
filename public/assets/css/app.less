@@ -287,6 +287,7 @@ ul.pagination {
             position: relative;
             height: 70px;
             overflow: hidden;
+
             .show-all {
                 display: block;
             }
@@ -300,12 +301,15 @@ ul.pagination {
         font-size: 15px;
         width: 100%;
         margin-bottom: 1rem;
+
         &#show-more {
             margin-bottom: 5rem;
+
             &[disabled] {
                 cursor: not-allowed;
             }
         }
+
         i {
             font-size: 14px;
         }
@@ -342,7 +346,6 @@ ul.pagination {
         border-radius: 50%;
         width: 150px;
         margin-top: 40px;
-
     }
 
     p {
@@ -357,6 +360,19 @@ ul.pagination {
         left: 0;
         right: 0;
         width: 100%;
+    }
+
+    .ribbon {
+        position: absolute;
+        top: 15px;
+        right: -45px;
+        width: 150px;
+        background-color: #dc3545;
+        color: white;
+        box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
+        text-align: center;
+        transform: rotate(45deg);
     }
 }
 
