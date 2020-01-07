@@ -38,7 +38,7 @@ class Send extends RowAction
             url("/blog/{$this->row->id}.html"),
         ], $content);
 
-         Cache::put($sendKey, $email, 180);
+        Cache::put($sendKey, $email, 180);
         try {
             Mail::send('emails.notify', [
                 'email' => $email,
