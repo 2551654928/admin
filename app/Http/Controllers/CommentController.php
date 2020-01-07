@@ -23,18 +23,21 @@ class CommentController extends Controller
         $parentId = $request->input('parent_id');
         try {
             $data = $this->validated();
-
             if (!$article = Article::find($data['foreign_id'])) {
                 throw new \Exception('不存在的资源');
             }
             $data['type'] = 'article';
             $content = $data['content'];
-            if ($created = Comment::create($data)) {
+            if (!$created = Comment::create($data)) {
+                throw new \Exception('评论失败');
+            }
+            if ($article->email !== $data['email']) { // 邮件邮箱相同的不接收通知
                 if ($parentId == 0 && $replyId == 0) {
                     // 给被回复对象发邮件
                     $types = Article::TYPES;
                     $subject = "【十年之约】{$types[$article->type]} <{$article->title}> 有了新的评论";
-                    /*Comment::sendCommentEmail(
+                    // 邮箱相同的不接收通知
+                    Comment::sendCommentEmail(
                         $created,
                         $article->email,
                         $subject,
@@ -42,7 +45,7 @@ class CommentController extends Controller
                         $article->title,
                         $types[$article->type],
                         $content
-                    );*/
+                    );
                 } else {
                     // 被回复对象原评论
                     $comment = null;
@@ -85,7 +88,10 @@ class CommentController extends Controller
 
             $data['type'] = 'blog';
             $content = $data['content'];
-            if ($created = Comment::create($data)) {
+            if (!$created = Comment::create($data)) {
+                throw new \Exception('评论失败');
+            }
+            if ($blog->email !== $data['email']) { // 邮件邮箱相同的不接收通知
                 if ($parentId == 0 && $replyId == 0) {
                     // 给被回复对象发邮件
                     $subject = "【十年之约】评论提醒";
