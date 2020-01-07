@@ -59,6 +59,18 @@ class Send extends RowAction
             if ($type > 0) {
                 $this->row->is_notify = 1;
             }
+            if ($type == 1) { // 审核通过
+                // 判断是否需要记录加入大事记
+                if ($this->row->datelines->isEmpty()) {
+                    if (!$this->row->datelines()->create([
+                        'date' => date('Y-m-d H:i:s'),
+                        'content' => '加入十年之约'
+                    ])) {
+                        throw new \Exception('大事记记录失败');
+                    }
+                }
+            }
+
             $this->row->save();
         } catch (\Exception $e) {
             Cache::forget($sendKey);
