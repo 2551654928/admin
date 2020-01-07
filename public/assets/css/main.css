@@ -3268,6 +3268,7 @@ body.index #main {
         background: none;
         display: block;
         padding: 0 1.5em;
+        box-shadow: none!important;
     }
 
     #banner .inner header h2 {
