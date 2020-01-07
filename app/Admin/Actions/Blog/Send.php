@@ -38,9 +38,9 @@ class Send extends RowAction
             url("/blog/{$this->row->id}.html"),
         ], $content);
 
-        // Cache::put($sendKey, $email, 180);
+         Cache::put($sendKey, $email, 180);
         try {
-            /*Mail::send('emails.notify', [
+            Mail::send('emails.notify', [
                 'email' => $email,
                 'title' => $title,
                 'content' => $content,
@@ -52,7 +52,7 @@ class Send extends RowAction
                     // 审核通过或驳回增加附件
                     $mail->attach(storage_path('十年之约公约.pdf'));
                 }
-            });*/
+            });
 
             $this->row->status = $status;
             // 如果是审核邮件，更改是否已发送邮件状态
