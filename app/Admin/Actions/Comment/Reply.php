@@ -43,7 +43,7 @@ class Reply extends RowAction
                 if ($article->type === 'page') {
                     $url = url("/{$article->key}.html");
                 } else {
-                    $url = url("/{$article->type}/{$blog->id}.html");
+                    $url = url("/{$article->type}/{$article->id}.html");
                 }
             }
 
