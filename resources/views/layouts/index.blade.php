@@ -15,7 +15,7 @@
         -o-filter: grayscale(100%);
     }
 </style>
-@endsection;
+@endsection
 @endif
 
 @section('content')
