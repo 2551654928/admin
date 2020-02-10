@@ -124,7 +124,3 @@
 
     </article>
 @endsection
-
-@section('js')
-<script src="/assets/js/snow.min.js"></script>
-@endsection
