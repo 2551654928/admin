@@ -30,7 +30,6 @@ class CommentController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Comment);
-        $grid->model()->orderBy('id', 'desc');
 
         $grid->quickSearch('name', 'email', 'link', 'content');
 
@@ -91,9 +90,7 @@ class CommentController extends AdminController
         $grid->column('content', __('评论内容'))->display(function ($content) {
             return Str::limit(strip_tags($content), 100);
         });
-        $grid->column('status', __('状态'))
-            ->filter(Comment::STATUS)
-            ->editable('select', Comment::STATUS);
+        $grid->column('status', __('状态'))->filter(Comment::STATUS)->editable('select', Comment::STATUS);
         $grid->column('created_at', __('评论时间'));
         $grid->disableCreateButton();
 

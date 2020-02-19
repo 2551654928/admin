@@ -26,7 +26,6 @@ class DatelineController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Dateline);
-        $grid->model()->orderBy('id', 'desc');
 
         $grid->quickSearch('content');
         $grid->filter(function($filter) {
@@ -46,14 +45,11 @@ class DatelineController extends AdminController
 
         $grid->column('id', __('ID'));
          $grid->column('blog.name', __('博客名称'));
-        $grid->column('date', __('日期'))->sortable()
-            ->editable('datetime')
-            ->filter('range', 'datetime');
+        $grid->column('date', __('日期'))->sortable()->editable('datetime')->filter('range', 'datetime');
         $grid->column('content', __('内容'))->display(function ($content) {
             return Str::limit(strip_tags($content), 150);
         });
-        $grid->column('created_at', __('创建时间'))->sortable()
-            ->filter('range', 'datetime');
+        $grid->column('created_at', __('创建时间'))->sortable()->filter('range', 'datetime');
 
         $grid->disableCreateButton();
 

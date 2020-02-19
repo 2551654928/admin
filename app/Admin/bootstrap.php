@@ -21,11 +21,16 @@
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
 use Encore\Admin\Show;
+use \Encore\Admin\Grid;
 
 Encore\Admin\Form::forget(['map', 'editor']);
 
 Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) {
     $navbar->right(new \App\Admin\Extensions\Nav\Links);
+});
+
+Grid::init(function (Grid $grid) {
+    $grid->model()->orderByDesc('id');
 });
 
 Form::init(function (Form $form) {

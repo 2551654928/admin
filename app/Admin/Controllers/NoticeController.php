@@ -27,7 +27,7 @@ class NoticeController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Article);
-        $grid->model()->orderBy('id', 'desc')->where('type', 'notice');
+        $grid->model()->where('type', 'notice');
 
         $grid->quickSearch();
 
@@ -62,14 +62,14 @@ class NoticeController extends AdminController
                 1 => __('允许评论'),
                 0 => __('不允许评论'),
             ]);
-        $grid->column('type', __('类型'))
+        /*$grid->column('type', __('类型'))
             ->using(Article::TYPES)
             ->filter(Article::TYPES)
             ->label([
                 'article' => 'success',
                 'notice' => 'info',
                 'page' => 'danger'
-            ]);
+            ]);*/
         $grid->column('updated_at', __('更新时间'))->sortable()
             ->filter('range', 'datetime');
         $grid->column('created_at', __('创建时间'))->sortable()

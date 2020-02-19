@@ -27,7 +27,7 @@ class ArticleController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Article);
-        $grid->model()->orderBy('id', 'desc')->where('type', 'article');
+        $grid->model()->where('type', 'article');
 
         $grid->filter(function($filter) {
             $filter->disableIdFilter();
@@ -66,10 +66,8 @@ class ArticleController extends AdminController
                 'notice' => 'info',
                 'page' => 'danger'
             ]);
-        $grid->column('updated_at', __('更新时间'))->sortable()
-            ->filter('range', 'datetime');
-        $grid->column('created_at', __('创建时间'))->sortable()
-            ->filter('range', 'datetime');
+        $grid->column('updated_at', __('更新时间'))->sortable()->filter('range', 'datetime');
+        $grid->column('created_at', __('创建时间'))->sortable()->filter('range', 'datetime');
 
         return $grid;
     }

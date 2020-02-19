@@ -39,7 +39,6 @@ class BlogController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Blog);
-        $grid->model()->orderBy('id', 'desc');
 
         $grid->filter(function ($filter) {
             $filter->disableIdFilter();

@@ -10,8 +10,6 @@ class SettingController extends AdminController
 {
     public function index(Content $content)
     {
-        return $content
-            ->title('网站设置')
-            ->body(new Setting());
+        return $content->title('网站设置')->body(new Setting());
     }
 }

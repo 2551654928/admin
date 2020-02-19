@@ -27,7 +27,7 @@ class PageController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Article);
-        $grid->model()->orderBy('id', 'desc')->where('type', '=', 'page');
+        $grid->model()->where('type', '=', 'page');
 
         $grid->disableRowSelector();
         $grid->disableCreateButton();
