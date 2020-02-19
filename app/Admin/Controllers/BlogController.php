@@ -64,15 +64,13 @@ class BlogController extends AdminController
             return '<img style="border-radius: 50%" width="20" src="' . $avatar . '">';
         });
         $grid->column('email', __('邮箱'));
-        $grid->column('link', __('链接地址'))->link()
-            ->copyable();
+        $grid->column('link', __('链接地址'))->link()->copyable();
+        $grid->column('slug', __('Slug'))->editable();
         $grid->column('message', __('寄语'))->display(function ($message) {
             return Str::limit($message, 60);
         });
         $grid->column('views', __('阅读量'))->sortable();
-        $grid->column('status', __('状态'))
-            ->filter(Blog::STATUS)
-            ->editable('select', Blog::STATUS);
+        $grid->column('status', __('状态'))->filter(Blog::STATUS)->editable('select', Blog::STATUS);
         $grid->column('is_notify', __('邮件通知'))->bool();
         $grid->column('created_at', __('提交时间'))->sortable()
             ->filter('range', 'datetime');
@@ -108,18 +106,33 @@ class BlogController extends AdminController
         $form = new Form(new Blog);
 
         $form->display('id', 'ID');
-        $form->text('name', __('博客名称'))
-            ->rules('required|min:2');
+        $form->text('name', __('博客名称'))->rules('required|min:2');
         $form->email('email', __('邮箱'))
             ->rules('required|email')
             ->creationRules(['required', "unique:blog"])
             ->updateRules(['required', "unique:blog,email,{{id}}"]);
-        $form->url('link', __('链接地址'))
-            ->rules('required|url');
-        $form->textarea('message', __('博主寄语'))
-            ->rules('required|max:200');
-        $form->radio('status', __('状态'))
-            ->options(Blog::STATUS)->default(0);
+        $form->url('link', __('链接地址'))->rules('required|url');
+        $form->text('slug', __('Slug'))
+            ->creationRules([
+                'nullable',
+                'unique:blog',
+                'alpha_dash',
+                'not_regex:/^\d+$/i',
+                'max:200'
+            ], [
+                'not_regex' => 'Slug 不能为纯数字'
+            ])
+            ->updateRules([
+                'nullable',
+                'unique:blog,slug,{{id}}',
+                'alpha_dash',
+                'not_regex:/^\d+$/i',
+                'max:200'
+            ], [
+                'not_regex' => 'Slug 不能为纯数字'
+            ]);
+        $form->textarea('message', __('博主寄语'))->rules('required|max:200');
+        $form->radio('status', __('状态'))->options(Blog::STATUS)->default(0);
         $form->text('views', __('阅读量'))->rules('numeric');
 
         return $form;

@@ -35,7 +35,7 @@ class Send extends RowAction
             '<br />',
             $this->row->name,
             $this->row->link,
-            url("/blog/{$this->row->id}.html"),
+            $this->row->detail_url,
         ], $content);
 
         Cache::put($sendKey, $email, 180);

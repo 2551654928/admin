@@ -18,7 +18,7 @@
                 @if(count($normal))
                     @foreach($normal as $item)
                     <li>
-                        <a href="{{ url("/blog/{$item->id}.html") }}" target="_blank" rel="noopener" class="item" title="{{ $item->message }}">
+                        <a href="{{ $item->detail_url }}" target="_blank" rel="noopener" class="item" title="{{ $item->message }}">
                             <img data-original="{{ gravatar($item->email) }}" alt="">
                             <div class="meta">
                                 <h4 class="name">{{ $item->name }}</h4>

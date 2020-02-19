@@ -60,4 +60,10 @@ class Blog extends Model
             ->where('status', 1)
             ->count();
     }
+
+    public function getDetailUrlAttribute($value)
+    {
+        $id = $this->slug ?: $this->id;
+        return url("/blog/{$id}.html");
+    }
 }

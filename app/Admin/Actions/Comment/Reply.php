@@ -32,7 +32,7 @@ class Reply extends RowAction
                     throw new \Exception('该评论来源博客已被删除, 无法回复');
                 }
                 $title = $blog->name;
-                $url = url("/blog/{$blog->id}.html");
+                $url = $blog->detail_url;
             }
 
             if ($type === 'article') {

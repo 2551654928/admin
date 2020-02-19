@@ -28,7 +28,8 @@ class BlogController extends Controller
     public function blog(Request $request)
     {
         $id = $request->route('id');
-        $blog = Blog::where('id', $id)->where('status', '<>', 0)->firstOrFail();
+        $field = is_numeric($id) ? 'id' : 'slug';
+        $blog = Blog::where($field, $id)->where('status', '<>', 0)->firstOrFail();
         $blog->increment('views');
         return view('layouts.blogs.detail', compact('blog'));
     }
