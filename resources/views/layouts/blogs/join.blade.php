@@ -19,17 +19,17 @@
     <form action="{{ url('/join.html') }}" method="post">
         @csrf
         <h3>博客名称 <span>*</span></h3>
-        <input type="text" class="user active" required="" name="name" autocomplete="off">
+        <input type="text" class="user active" required="" name="name" autocomplete="off" placeholder="请输入博客名称">
         <h3>邮箱 <span>*</span></h3>
-        <input type="text" class="email" required="" name="email" autocomplete="off">
+        <input type="text" class="email" required="" name="email" autocomplete="off" placeholder="请输入邮箱，头像将使用基于邮箱生成的 Gravatar 头像">
         <h3>网站地址 <span>*</span></h3>
-        <input type="text" class="url" required="" name="link" autocomplete="off">
+        <input type="text" class="url" required="" name="link" autocomplete="off" placeholder="请输入博客链接">
         <h3>博主寄语 <span>*</span></h3>
-        <textarea class="i" name="message" required></textarea>
+        <textarea class="i" name="message" placeholder="博客寄语，将会在博客详情页展示，建议在 80-100 个字符以内" required></textarea>
         <h3>验证码 <span>*</span></h3>
         <img src="{{ captcha_src() }}" id="verify">
         <br>
-        <input type="text" required="" name="captcha" autocomplete="off">
+        <input type="text" required="" name="captcha" autocomplete="off" placeholder="请输入验证码">
         @if($closeApply)
             <input type="submit" value="已关闭申请系统" disabled>
         @else
