@@ -12,7 +12,7 @@
     <meta http-equiv="Content-Language" content="zh-CN" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="description" content="@yield('description', '一个人的寂寞，一群人的狂欢。')" />
+    <meta name="description" content="@yield('description', '十年之约是一个记录、展示独立博客的平台，即从加入这个活动起，我们的博客10年不关闭或者更久，保持更新和活力。把博客从爱好变成一种习惯，坚持10年，是一项很有意义的活动，我们希望更多的博主加入！')" />
     <meta name="keywords" content="十年之约,个人博客,博客十年之约,博客收录,博客交流,博客展示,独立博客,记录我们的十年" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
