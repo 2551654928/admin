@@ -27,7 +27,7 @@ function gravatar($email, $s = 96, $d = 'mp', $r = 'g', $img = false, $atts = ar
 {
     preg_match_all('/((\d)*)@qq.com/', $email, $vai);
     if (empty($vai['1']['0'])) {
-        $url = 'https://gravatar.cat.net/avatar/';
+        $url = 'http://cn.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$s&d=$d&r=$r";
         if ($img) {
