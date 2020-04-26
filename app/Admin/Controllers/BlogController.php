@@ -238,7 +238,11 @@ EOF;
         Blog::where('status', 1)->chunk(10, function ($blogs) use (&$client, &$options, &$error) {
             foreach ($blogs as $blog) {
                 try {
-                    $promise = $client->getAsync($blog->link)->then(
+                    $promise = $client->getAsync($blog->link, [
+                        'headers' => [
+                            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36',
+                        ]
+                    ])->then(
                         function (ResponseInterface $res) {
                             $this->out("<span class='success'>√</span></p>");
                         },
