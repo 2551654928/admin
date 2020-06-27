@@ -29,7 +29,7 @@ class BlogController extends Controller
     {
         $id = $request->route('id');
         $field = is_numeric($id) ? 'id' : 'slug';
-        $blog = Blog::where($field, $id)->where('status', '<>', 0)->firstOrFail();
+        $blog = Blog::where($field, $id)->whereIn('status', [1, 3, 4])->firstOrFail();
         $blog->increment('views');
         return view('layouts.blogs.detail', compact('blog'));
     }
